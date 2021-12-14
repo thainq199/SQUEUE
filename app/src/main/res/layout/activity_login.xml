@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:tools="http://schemas.android.com/tools"
-android:background="@color/gray_200"
-android:orientation="vertical"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:gravity="center_horizontal"
-tools:context=".login.LoginActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray_200"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    tools:context=".login.LoginActivity">
 
     <TextView
-    android:id="@+id/squeue"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="50dp"
-    android:gravity="center"
-    android:text="@string/app_name" android:textColor="@color/blue"
-    android:textSize="50sp" />
+        android:id="@+id/squeue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/blue"
+        android:textSize="50sp" />
 
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/etusername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -32,7 +33,7 @@ tools:context=".login.LoginActivity">
 
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/etpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
@@ -44,7 +45,7 @@ tools:context=".login.LoginActivity">
 
 
     <TextView
-        android:id="@+id/forgetPassword"
+        android:id="@+id/tvforgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -62,10 +63,10 @@ tools:context=".login.LoginActivity">
         android:text="@string/term"
         android:layout_marginTop="80dp"
         android:textSize="15sp"
-        android:textColor="@color/blue"/>
+        android:textColor="@color/blue" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btRegister"
+        android:id="@+id/btLogin"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"

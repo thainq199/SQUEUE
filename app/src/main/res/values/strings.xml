@@ -15,6 +15,13 @@
     <string name="decline">Bỏ qua</string>
     <string name="Ten_dn">Tên đăng nhập</string>
     <string name="Mat_khau">Mật khẩu</string>
-    <string name="Quen_Mat_khau"><u>Quên Mật khẩu</u></string>
+    <string name="Quen_Mat_khau"><u>Quên Mật khẩu?</u></string>
+    <string name="Cap_Lai_Mat_khau">Cấp lại Mật khẩu</string>
+    <string name="Email">Email</string>
+    <string name="Tiep_tuc">Tiếp tục</string>
+    <string name="otp">Vui lòng nhập OTP xác nhận từ Email</string>
+    <string name="confirm">Xác Nhận</string>
+    <string name="b_n_ch_a_nh_n_c_m">Bạn chưa nhận được mã?</string>
+    <string name="g_i_l_i_ngay">GỬI LẠI NGAY</string>
 
 </resources>

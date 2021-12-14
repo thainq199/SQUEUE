@@ -5,29 +5,14 @@ import java.io.Serializable;
 public class Account implements Serializable {
     private int id;
     private String name;
-    private String img;
-    private String address;
-    private String birth;
+    private String email;
+    private String role;
+    private String password;
     private String phone;
 
-    public Account(String name, String img, String address, String birth, String phone) {
-        this.name = name;
-        this.img = img;
-        this.address = address;
-        this.birth = birth;
-        this.phone = phone;
-    }
-
-    public Account(int id, String name, String img, String address, String birth, String phone) {
-        this.id = id;
-        this.name = name;
-        this.img = img;
-        this.address = address;
-        this.birth = birth;
-        this.phone = phone;
-    }
 
     public Account() {
+
     }
 
     public int getId() {
@@ -46,28 +31,28 @@ public class Account implements Serializable {
         this.name = name;
     }
 
-    public String getImg() {
-        return img;
+    public String getEmail() {
+        return email;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getRole() {
+        return role;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getBirth() {
-        return birth;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
