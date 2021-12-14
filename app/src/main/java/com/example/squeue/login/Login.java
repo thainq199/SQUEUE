@@ -11,8 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.squeue.R;
+import com.example.squeue.home.Home;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etusername, etpassword;
     private TextView tvforgotPassword;
     private Button btLogin;
@@ -51,12 +52,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else{
             //check neu dung
             //if...
-            //        Intent in = new Intent(this, home.class);
-            //        startActivity(in);
+                    Intent in = new Intent(this, Home.class);
+                    startActivity(in);
 
             //neu sai
             //else
-            Toast.makeText(this,"Tên đăng nhập hoặc mật khẩu không đúng",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"Tên đăng nhập hoặc mật khẩu không đúng",Toast.LENGTH_LONG).show();
         }
 
     }

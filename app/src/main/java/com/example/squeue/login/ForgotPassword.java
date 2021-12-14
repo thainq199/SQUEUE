@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.squeue.R;
@@ -52,7 +51,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     public void OtpConfirm() {
         //if(opt is right)
-        Intent in = new Intent(this, LoginActivity.class);
+        Intent in = new Intent(this, Login.class);
         startActivity(in);
     }
 

@@ -10,12 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SQUEUE">
         <activity
-            android:name=".login.ForgotPassword"
+            android:name=".home.Home"
             android:exported="false" />
-        <!-- <activity -->
+        <activity
+            android:name=".login.ForgotPassword"
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".login.LoginActivity"/> -->
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".login.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
