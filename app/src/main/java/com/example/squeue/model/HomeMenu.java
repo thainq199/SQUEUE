@@ -1,6 +1,8 @@
 package com.example.squeue.model;
 
-public class HomeMenu {
+import java.io.Serializable;
+
+public class HomeMenu implements Serializable {
     private String menuImg;
     private String menuImgName;
 

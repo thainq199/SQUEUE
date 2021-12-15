@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.squeue.R;
 
-public class ForgotPassword extends AppCompatActivity implements View.OnClickListener{
+public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivBack;
     private EditText etusername, etemail;
     private Button btForgetPass, btOtp;
@@ -26,6 +26,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         init();
         setOnClick();
     }
+
     public void init() {
         //popup
         myDiaglog = new Dialog(this);
@@ -56,10 +57,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public void onClickOtp() {
-        if(etusername.length()==0 || etemail.length()==0){
-            Toast.makeText(this,"Tên đăng nhập hoặc email không được trống",Toast.LENGTH_LONG).show();
-        }
-        else{
+        if (etusername.length() == 0 || etemail.length() == 0) {
+            Toast.makeText(this, "Tên đăng nhập hoặc email không được trống", Toast.LENGTH_LONG).show();
+        } else {
             //if(ton tai username )...
             myDiaglog.show();
         }
@@ -69,11 +69,9 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v.getId() == btForgetPass.getId()) {
             onClickOtp();
-        }
-        else if (v.getId() == ivBack.getId()) {
+        } else if (v.getId() == ivBack.getId()) {
             finish();
-        }
-        else if (v.getId() == btOtp.getId()) {
+        } else if (v.getId() == btOtp.getId()) {
             OtpConfirm();
         }
     }

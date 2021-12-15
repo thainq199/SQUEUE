@@ -23,5 +23,18 @@
     <string name="confirm">Xác Nhận</string>
     <string name="b_n_ch_a_nh_n_c_m">Bạn chưa nhận được mã?</string>
     <string name="g_i_l_i_ngay">GỬI LẠI NGAY</string>
+    <string name="queue">Quản lý hàng chờ</string>
+    <string name="qr">Sinh QR Code</string>
+    <string name="statistics">Xem thống kê</string>
+    <string name="user">      Cá nhân</string>
+    <string name="TinhThanh">Tỉnh/Thành Phố</string>
+    <string name="QuanHuyen">Quận/Huyện</string>
+    <string name="Phuong">Phường</string>
+    <string name="GenQR">Generate QR Code</string>
+
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 
 </resources>

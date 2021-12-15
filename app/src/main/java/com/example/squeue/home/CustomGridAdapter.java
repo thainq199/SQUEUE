@@ -14,18 +14,17 @@ import com.example.squeue.model.HomeMenu;
 
 import java.util.List;
 
-public class CustomGridAdapter  extends BaseAdapter {
+public class CustomGridAdapter extends BaseAdapter {
 
     private List<HomeMenu> listData;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public CustomGridAdapter(Context aContext,  List<HomeMenu> listData) {
+    public CustomGridAdapter(Context aContext, List<HomeMenu> listData) {
         this.context = aContext;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
     }
-
 
 
     @Override
@@ -56,22 +55,21 @@ public class CustomGridAdapter  extends BaseAdapter {
         }
 
         HomeMenu menu = this.listData.get(position);
-        holder.menuImgName.setText(menu.getMenuImg());
 
-        int imageId = this.getMipmapResIdByName(menu.getMenuImgName());
-
+        holder.menuImgName.setText(menu.getMenuImgName());
+        int imageId = this.getMipmapResIdByName(menu.getMenuImg());
         holder.menuImg.setImageResource(imageId);
 
         return convertView;
     }
 
     // Find Image ID corresponding to the name of the image (in the directory mipmap).
-    public int getMipmapResIdByName(String resName)  {
+    public int getMipmapResIdByName(String resName) {
         String pkgName = context.getPackageName();
 
         // Return 0 if not found.
-        int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
-        Log.i("CustomGridView", "Res Name: "+ resName+"==> Res ID = "+ resID);
+        int resID = context.getResources().getIdentifier(resName, "mipmap", pkgName);
+        Log.i("CustomGridView", "Res Name: " + resName + "==> Res ID = " + resID);
         return resID;
     }
 

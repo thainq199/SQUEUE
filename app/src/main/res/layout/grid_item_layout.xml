@@ -20,6 +20,5 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:textColor="@color/black"
-        android:text="Menu"
-         />
+        android:text="Menu" />
 </LinearLayout>

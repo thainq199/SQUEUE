@@ -46,14 +46,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void login() {
-        if(etusername.length()==0 || etpassword.length()==0){
-            Toast.makeText(this,"Tên đăng nhập hoặc mật khẩu không được trống",Toast.LENGTH_LONG).show();
-        }
-        else{
+        if (etusername.length() == 0 || etpassword.length() == 0) {
+            Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không được trống", Toast.LENGTH_LONG).show();
+        } else {
             //check neu dung
             //if...
-                    Intent in = new Intent(this, Home.class);
-                    startActivity(in);
+            Intent in = new Intent(this, Home.class);
+            startActivity(in);
 
             //neu sai
             //else
