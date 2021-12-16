@@ -21,6 +21,8 @@ import com.example.squeue.getAPI.JsonPlaceHolderApi;
 import com.example.squeue.home.Home;
 import com.example.squeue.model.Address;
 import com.example.squeue.model.City;
+import com.example.squeue.model.District;
+import com.example.squeue.model.Ward;
 
 
 import org.json.JSONArray;
@@ -47,8 +49,12 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     private ImageView ivBack, ivHome;
     private Button btGenQR;
     private Spinner city, district, ward;
-    private TextView textViewResult;
     private List<City> cityList;
+    private List<District> districtsList;
+    private List<Ward> wardsList;
+    private String spinnerCity, spinnerDistrict, spinnerWard;
+    private int province_code = 1, district_code = 1;
+    private Address address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +62,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.activity_qrcode);
         init();
         setOnClick();
-        getAPI(1);
-        getAPI(2);
-        getAPI(3);
+        getAPI();
     }
 
     public void init() {
@@ -68,7 +72,6 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         city = findViewById(R.id.spinnerCity);
         district = findViewById(R.id.spinnertvDistrict);
         ward = findViewById(R.id.spinnerWard);
-        textViewResult=findViewById(R.id.textViewResult);
     }
 
     public void setOnClick() {
@@ -77,7 +80,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         btGenQR.setOnClickListener(this);
     }
 
-    public void getAPI(int choose) {
+    public void getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://provinces.open-api.vn/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -85,31 +88,32 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        Call<List<City>> call = jsonPlaceHolderApi.getCitis();
+        Call<List<City>> citiCall = jsonPlaceHolderApi.getCitis();
+        Call<List<District>> districtCall = jsonPlaceHolderApi.getDistrict();
+        Call<List<Ward>> wardCall = jsonPlaceHolderApi.getWard();
 
-        call.enqueue(new Callback<List<City>>() {
+        citiCall.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
 
                 if (!response.isSuccessful()) {
-                    textViewResult.setText("Code: " + response.code());
                     return;
                 }
 
                 cityList = response.body();
 
-//                for (City city : cityList) {
-//                    String content = "";
-//                    content += "Name: " + city.getName() + "\n";
-//                    content += "Code: " + city.getCode() + "\n";
-//
-//                    textViewResult.append(content);
-//                }
-
                 ArrayList<String> listCities = new ArrayList<>();
-                for (int i=0;i<cityList.size();i++){
+                for (int i = 0; i < cityList.size(); i++) {
                     listCities.add(cityList.get(i).getName());
-                    Log.i("City",cityList.get(i).getName());
+                    //Log.i("City", cityList.get(i).getName());
+                }
+
+                //lay province code
+
+                for (int i = 0; i < cityList.size(); i++) {
+                   // if(cityList.get(i).getName().equals(spinnerCity)){
+                        province_code=cityList.get(i).getCode();
+                   // }
                 }
 
                 ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listCities);
@@ -120,32 +124,90 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
+            }
+        });
+
+        districtCall.enqueue(new Callback<List<District>>() {
+            @Override
+            public void onResponse(Call<List<District>> call, Response<List<District>> response) {
+
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                districtsList = response.body();
+
+                ArrayList<String> listDistrict = new ArrayList<>();
+                for (int i = 0; i < districtsList.size(); i++) {
+                   // if(districtsList.get(i).getProvince_code()==province_code){
+                        listDistrict.add(districtsList.get(i).getName());
+                   // }
+                }
+
+                //lay district code
+
+                for (int i = 0; i < districtsList.size(); i++) {
+                   // if(districtsList.get(i).getName().equals(spinnerDistrict)){
+                        district_code=districtsList.get(i).getCode();
+                   // }
+                }
+
+                ArrayAdapter<String> districtAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listDistrict);
+                district.setAdapter(districtAdapter);
+                district.setOnItemSelectedListener(QRCode.this);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<District>> call, Throwable t) {
+            }
+        });
+
+        wardCall.enqueue(new Callback<List<Ward>>() {
+            @Override
+            public void onResponse(Call<List<Ward>> call, Response<List<Ward>> response) {
+
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                wardsList = response.body();
+
+                ArrayList<String> listWards = new ArrayList<>();
+                for (int i = 0; i < wardsList.size(); i++) {
+                    //if(wardsList.get(i).getDistrict_code()==district_code) {
+                        listWards.add(wardsList.get(i).getName());
+                    //}
+                }
+
+                ArrayAdapter<String> wardAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listWards);
+                ward.setAdapter(wardAdapter);
+                ward.setOnItemSelectedListener(QRCode.this);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<Ward>> call, Throwable t) {
+
             }
         });
 
     }
 
     public void genQR() {
+        //truyen address sang GenQR
 
-
+        Intent in = new Intent(this, GenQRCode.class);
+        startActivity(in);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
-        switch (position) {
-            case 0:
-                // Whatever you want to happen when the first item gets selected
-                break;
-            case 1:
-                // Whatever you want to happen when the second item gets selected
-                break;
-            case 2:
-                // Whatever you want to happen when the thrid item gets selected
-                break;
+        spinnerCity = city.getSelectedItem().toString();
+        spinnerDistrict = district.getSelectedItem().toString();
+        spinnerWard = ward.getSelectedItem().toString();
 
-        }
     }
 
     @Override
