@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.squeue.model.Address;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -28,10 +30,12 @@ import com.example.squeue.home.Home;
 
 public class GenQRCode extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivBack, ivHome, qrCodeIV;
+    private TextView tvAddress;
     private Button btSaveQr;
-    private EditText dataEdt;
-    Bitmap bitmap;
-    QRGEncoder qrgEncoder;
+    private String city, district, ward, fullAddress;
+    private Address address;
+    private Bitmap bitmap;
+    private QRGEncoder qrgEncoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,17 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     public void init() {
         ivBack = findViewById(R.id.ivBack);
         ivHome = findViewById(R.id.ivHome);
+        tvAddress =findViewById(R.id.tvAddress);
         qrCodeIV = findViewById(R.id.ivIVQrcode);
         btSaveQr = findViewById(R.id.btSaveQr);
 
+        Bundle bundle = getIntent().getExtras();
+        city = bundle.getString("city");
+        district = bundle.getString("district");
+        ward = bundle.getString("ward");
+        fullAddress = city + ", " + district + ", " + ward;
+        tvAddress.setText(fullAddress);
+        address = new Address(city,district,ward);
     }
 
     public void setOnClick() {
@@ -80,7 +92,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
 
         // setting this dimensions inside our qr code
         // encoder to generate our qr code.
-        qrgEncoder = new QRGEncoder(dataEdt.getText().toString(), null, QRGContents.Type.TEXT, dimen);
+        qrgEncoder = new QRGEncoder(fullAddress, null, QRGContents.Type.TEXT, dimen);
         try {
             // getting our qrcode in the form of bitmap.
             bitmap = qrgEncoder.encodeAsBitmap();
@@ -96,7 +108,9 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     }
 
     public void saveQR() {
+        //luu qr vao server
 
+        Toast.makeText(this,"Save Successfully",Toast.LENGTH_LONG).show();
 
     }
 

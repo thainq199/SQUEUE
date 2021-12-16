@@ -44,7 +44,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class QRCode extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private ImageView ivBack, ivHome;
     private Button btGenQR;
@@ -54,7 +53,6 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     private List<Ward> wardsList;
     private String spinnerCity, spinnerDistrict, spinnerWard;
     private int province_code = 1, district_code = 1;
-    private Address address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +68,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         ivHome = findViewById(R.id.ivHome);
         btGenQR = findViewById(R.id.btGenQr);
         city = findViewById(R.id.spinnerCity);
-        district = findViewById(R.id.spinnertvDistrict);
+        district = findViewById(R.id.spinnerDistrict);
         ward = findViewById(R.id.spinnerWard);
     }
 
@@ -198,6 +196,9 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         //truyen address sang GenQR
 
         Intent in = new Intent(this, GenQRCode.class);
+        in.putExtra("city", spinnerCity);
+        in.putExtra("district", spinnerDistrict);
+        in.putExtra("ward", spinnerWard);
         startActivity(in);
     }
 
