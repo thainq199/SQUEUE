@@ -174,7 +174,9 @@ public class StatisticsVaccine extends AppCompatActivity implements View.OnClick
     }
 
     public void vaccineStats() {
-        //lay dl tu server
+        //lay dl tu server ...
+        //...
+
         Intent in = new Intent(this, PieChartVaccine.class);
         in.putExtra("city", spinnerCity);
         in.putExtra("district", spinnerDistrict);

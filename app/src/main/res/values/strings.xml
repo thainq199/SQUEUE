@@ -34,11 +34,29 @@
     <string name="SaveQR">Save QR Code</string>
     <string name="thongke">Thống kê</string>
     <string name="xemthongke">Xem thống kê</string>
-    <string name="tiletiem">Tỉ lệ số mũi được tiêm (Phần trăm):</string>
+    <string name="tiletiem">Tỉ lệ số mũi được tiêm (%):</string>
     <string name="dose0">Dose 0</string>
     <string name="dose1">Dose 1</string>
     <string name="dose2">Dose 2</string>
     <string name="dose3">Dose 3</string>
+    <string name="userSetting">Cá nhân</string>
+    <string name="editUser">Sửa</string>
+    <string name="user_name">Tên hiển thị</string>
+    <string name="user_address">Địa chỉ</string>
+    <string name="user_dob">Ngày sinh</string>
+    <string name="user_phoneNum">Số thuê bao</string>
+    <string name="user_app">Ứng dụng</string>
+    <string name="user_info">Thông tin cá nhân</string>
+    <string name="noti_register">Đăng ký nhận thông báo</string>
+    <string name="setting_appVersion">Phiên bản</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="changePassword">Đổi mật khẩu</string>
+    <string name="email">Email</string>
+    <string name="role">Chức vụ</string>
+    <string name="oldPassword">Mật khẩu cũ</string>
+    <string name="newPassword">Mật khẩu mới</string>
+    <string name="confirmNewPassword">Xác nhận mật khẩu</string>
+
 
 
 

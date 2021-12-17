@@ -3,11 +3,11 @@ package com.example.squeue.model;
 import java.io.Serializable;
 
 public class Account implements Serializable {
-    private int id;
+    private String id;
+    private String password;
     private String name;
     private String email;
     private String role;
-    private String password;
     private String phone;
 
 
@@ -15,11 +15,20 @@ public class Account implements Serializable {
 
     }
 
-    public int getId() {
+    public Account(String id, String password, String name, String email, String role, String phone) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.phone = phone;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

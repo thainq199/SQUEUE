@@ -22,4 +22,11 @@
     <style name="Theme.SQUEUE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SQUEUE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MySwitch" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textColorPrimaryDisableOnly">#b71c1c</item>
+        <item name="android:colorControlActivated">#5379F5</item>
+        <item name="android:colorForeground">#A2A6BB</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
 </resources>

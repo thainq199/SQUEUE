@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp">
@@ -198,7 +198,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/details"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="240dp"
         android:layout_below="@+id/cardViewGraph"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
@@ -222,7 +222,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/tiletiem"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <!--View to display the line-->

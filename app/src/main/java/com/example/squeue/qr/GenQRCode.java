@@ -110,7 +110,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     public void saveQR() {
         //luu qr vao server
 
-        Toast.makeText(this,"Save Successfully",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Saved Successfully",Toast.LENGTH_LONG).show();
 
     }
 
