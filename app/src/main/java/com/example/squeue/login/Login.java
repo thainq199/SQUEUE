@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button btLogin;
     private SignInButton google_sign_in_button;
     private GoogleSignInClient mGoogleSignInClient;
-    private int RC_SIGN_IN = 0;
+    private static final int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         init();
         setOnClick();
-        googleLogin();
     }
 
     public void init() {
@@ -44,7 +43,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etpassword = findViewById(R.id.etpassword);
         tvforgotPassword = findViewById(R.id.tvforgotPassword);
         btLogin = findViewById(R.id.btLogin);
-        google_sign_in_button = findViewById(R.id.google_sign_in_button);
+        google_sign_in_button = (SignInButton) findViewById(R.id.google_sign_in_button);
+        google_sign_in_button.setSize(google_sign_in_button.SIZE_STANDARD);
     }
 
     public void setOnClick() {
@@ -79,7 +79,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("33374550787-tdcio683m9dt4gcpubmhtq7phujrh70a.apps.googleusercontent.com")
                 .requestEmail()
+                .requestId()
+                .requestProfile()
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -92,6 +95,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+
 
             // Signed in successfully, show authenticated UI.
             Intent in = new Intent(this, Home.class);
@@ -125,8 +130,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
             handleSignInResult(task);
         }
+
+//        if (requestCode == RC_GET_AUTH_CODE) {
+//            // [START get_auth_code]
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            try {
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//
+////
+////                // TODO(developer): send code to server and exchange for access/refresh/ID tokens
+//            } catch (ApiException e) {
+//                Log.w(TAG, "Sign-in failed", e);
+//            }
+//            // [END get_auth_code]
+//        }
+  //  }
     }
 
     @Override
@@ -136,7 +157,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         } else if (v.getId() == btLogin.getId()) {
             login();
         } else if (v.getId() == google_sign_in_button.getId()) {
-            Toast.makeText(this,"Google",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Google",Toast.LENGTH_SHORT).show();
             googleLogin();
         }
     }

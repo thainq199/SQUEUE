@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.squeue.R;
 
 public class ChangePassword extends AppCompatActivity implements View.OnClickListener{
-    private EditText etnewPassword, etconfirmNewPassword;
+    private EditText etnewPassword, etconfirmNewPassword,etcurrentPassword;
     private Button btChangePassword;
+    private int code = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,14 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         //popup
         etnewPassword = findViewById(R.id.etnewPassword);
         etconfirmNewPassword = findViewById(R.id.etconfirmNewPassword);
+        etcurrentPassword= findViewById(R.id.etcurrentPassword);
         btChangePassword = findViewById(R.id.btChangePassword);
 
+        Bundle bundle = getIntent().getExtras();
+        code = bundle.getInt("code");
+        if (code==1){
+            etcurrentPassword.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setOnClick() {
@@ -38,7 +46,7 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public void changePassword() {
-        if(etnewPassword.length() == 0 || etconfirmNewPassword.length() == 0){
+        if(etnewPassword.length() == 0 || etconfirmNewPassword.length() == 0 || etcurrentPassword.length() == 0){
             Toast.makeText(this,"Mật khẩu không được trống",Toast.LENGTH_SHORT).show();
         }
         else if(!(etnewPassword.getText().toString().equals(etconfirmNewPassword.getText().toString()))){

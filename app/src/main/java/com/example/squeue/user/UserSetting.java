@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.example.squeue.login.ChangePassword;
 import com.example.squeue.login.Login;
 import com.example.squeue.model.Account;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,21 +27,20 @@ import com.google.android.gms.tasks.Task;
 public class UserSetting extends AppCompatActivity implements View.OnClickListener{
     private TextView tvEditUser;
     private EditText etUser_name, etUser_email, et_User_role, etUser_phoneNum;
-    private String personName, personEmail;
     private int EditUserStatus = 0;
     private LinearLayout layoutChangePassword;
     private Button btLogout;
     private ImageView ivBack,ivHome;
     private Account account;
     private GoogleSignInClient mGoogleSignInClient;
+    private String personName,personGivenName,personFamilyName,personEmail,personId;
+    private Uri personPhoto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
-        init();
-        setOnClick();
-        loadUserToForm();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -47,6 +48,22 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            personName = acct.getDisplayName();
+            personGivenName = acct.getGivenName();
+            personFamilyName = acct.getFamilyName();
+            personEmail = acct.getEmail();
+            personId = acct.getId();
+            personPhoto = acct.getPhotoUrl();
+
+            //Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
+        }
+
+        init();
+        setOnClick();
+        //loadUserToForm();
     }
 
 
@@ -61,9 +78,6 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
         ivHome = findViewById(R.id.ivHome);
         btLogout = findViewById(R.id.btLogout);
 
-        Bundle bundle = getIntent().getExtras();
-        personName = bundle.getString("personName");
-        personEmail = bundle.getString("personEmail");
         etUser_name.setText(personName);
         etUser_email.setText(personEmail);
     }
@@ -110,6 +124,7 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
 
     public void changePassword() {
         Intent in = new Intent(this, ChangePassword.class);
+        in.putExtra("code", 1);
         startActivity(in);
     }
 

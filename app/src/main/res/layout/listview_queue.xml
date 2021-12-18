@@ -15,18 +15,43 @@
         android:layout_marginLeft="5dp"
         android:text="1" />
 
-    <TextView
-        android:id="@+id/nameCity"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="Name"
-        android:textStyle="bold" />
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/nameDistrict"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="1000" />
+        <TextView
+            android:id="@+id/nameCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="50dp"
+            android:text="Name"
+            android:gravity="center_horizontal"
+            android:layout_weight="3"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivStart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@mipmap/play" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@mipmap/delete" />
+
+
+    </LinearLayout>
+
+
+
     </LinearLayout>

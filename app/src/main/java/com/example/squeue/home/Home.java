@@ -15,6 +15,7 @@ import com.example.squeue.R;
 import com.example.squeue.model.HomeMenu;
 import com.example.squeue.qr.QRCode;
 import com.example.squeue.queue.QueueLine;
+import com.example.squeue.queue.QueueManagement;
 import com.example.squeue.statistics.StatisticsVaccine;
 import com.example.squeue.user.UserSetting;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,25 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
-    private String personName,personGivenName,personFamilyName,personEmail,personId;
-    private Uri personPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            personName = acct.getDisplayName();
-            personGivenName = acct.getGivenName();
-            personFamilyName = acct.getFamilyName();
-            personEmail = acct.getEmail();
-            personId = acct.getId();
-            personPhoto = acct.getPhotoUrl();
-
-            //Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
-        }
 
         List<HomeMenu> image_details = getListData();
         final GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -54,7 +41,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 if (position == 0) {
-                    Intent in = new Intent(Home.this, QueueLine.class);
+                    Intent in = new Intent(Home.this, QueueManagement.class);
                     startActivity(in);
 
                 } else if (position == 1) {
@@ -67,10 +54,6 @@ public class Home extends AppCompatActivity {
 
                 } else if (position == 3) {
                     Intent in = new Intent(Home.this, UserSetting.class);
-                    in.putExtra("personName", personName);
-                    in.putExtra("personEmail", personEmail);
-                    in.putExtra("personId", personId);
-                    in.putExtra("personPhoto", personPhoto);
                     startActivity(in);
                 }
             }

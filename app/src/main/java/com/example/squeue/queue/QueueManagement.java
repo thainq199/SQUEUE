@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class QueueManagement extends AppCompatActivity implements View.OnClickListener{
     private ImageView ivBack, ivHome;
-    private Button btDelete, btStart;
     private ArrayList<Address> listQueue;
     QueueListViewAdapter queueListViewAdapter;
     ListView listview_queue;
@@ -37,11 +36,9 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
     public void init() {
         ivBack = findViewById(R.id.ivBack);
         ivHome = findViewById(R.id.ivHome);
-//        btDelete = findViewById(R.id.btDelete);
-//        btStart = findViewById(R.id.btStart);
         listQueue = new ArrayList<>();
 
-        listQueue.add(new Address(1,"HN","Dong Da","Trung Tu"));
+        listQueue.add(new Address(1,"Ha Noi, Dong Da, Trung Tu","Dong Da","Trung Tu"));
         listQueue.add(new Address(2,"HN","Dong Da","Trung Liet"));
         listQueue.add(new Address(3,"HN","Ba Dinh","Phuc Xa "));
         listQueue.add(new Address(4,"HN","Ba Dinh","Truc Bach"));
@@ -63,50 +60,36 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Address address = (Address) queueListViewAdapter.getItem(position);
                 //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
+
+
                 Toast.makeText(QueueManagement.this, address.getCity(), Toast.LENGTH_LONG).show();
             }
         });
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listQueue.size() > 0) {
-                    //Xoá phần tử đầu tiên của danh sách
-                    int productpost = 0;
-                    listQueue.remove(productpost);
-                    //Thông báo cho ListView biết dữ liệu đã thay đổi (cập nhật, xoá ...)
-                    queueListViewAdapter.notifyDataSetChanged();
-                }
-            }
-        });
+//        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (listQueue.size() > 0) {
+//                    //Xoá phần tử đầu tiên của danh sách
+//                    int productpost = 0;
+//                    listQueue.remove(productpost);
+//                    //Thông báo cho ListView biết dữ liệu đã thay đổi (cập nhật, xoá ...)
+//                    queueListViewAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
 
     }
 
     public void setOnClick() {
         ivBack.setOnClickListener(this);
         ivHome.setOnClickListener(this);
-//        btDelete.setOnClickListener(this);
-//        btStart.setOnClickListener(this);
-    }
-
-    public void startQueue() {
-
-    }
-
-
-    public void deleteQueue() {
-
     }
 
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == btStart.getId()) {
-            startQueue();
-        }
-        else if (v.getId() == btDelete.getId()) {
-            deleteQueue();
-        }else if (v.getId() == ivBack.getId()) {
+     if (v.getId() == ivBack.getId()) {
             finish();
         } else if (v.getId() == ivHome.getId()) {
             Intent in = new Intent(this, Home.class);

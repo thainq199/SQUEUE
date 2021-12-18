@@ -53,6 +53,7 @@
     <string name="changePassword">Đổi mật khẩu</string>
     <string name="email">Email</string>
     <string name="role">Chức vụ</string>
+    <string name="currentPassword">Mật khẩu hiện tại</string>
     <string name="oldPassword">Mật khẩu cũ</string>
     <string name="newPassword">Mật khẩu mới</string>
     <string name="confirmNewPassword">Xác nhận mật khẩu</string>

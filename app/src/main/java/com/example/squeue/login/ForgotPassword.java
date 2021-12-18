@@ -53,6 +53,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     public void OtpConfirm() {
         //if(opt is right)
         Intent in = new Intent(this, ChangePassword.class);
+        in.putExtra("code", 0);
         startActivity(in);
     }
 

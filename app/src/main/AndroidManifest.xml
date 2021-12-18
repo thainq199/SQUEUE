@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SQUEUE">
         <activity
+            android:name=".queue.ListCustomerQueue"
+            android:exported="false" />
+        <activity
             android:name=".login.ChangePassword"
             android:exported="false" />
         <activity

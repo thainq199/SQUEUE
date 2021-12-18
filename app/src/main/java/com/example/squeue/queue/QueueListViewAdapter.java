@@ -3,6 +3,7 @@ package com.example.squeue.queue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.squeue.R;
@@ -38,6 +39,8 @@ public class QueueListViewAdapter extends BaseAdapter {
         //View này được sử dụng lại, chỉ việc cập nhật nội dung mới
         //Nếu null cần tạo mới
 
+        ImageView ivStart, ivDelete;
+
         View viewAddress;
         if (convertView == null) {
             viewAddress = View.inflate(parent.getContext(), R.layout.listview_queue, null);
@@ -46,9 +49,23 @@ public class QueueListViewAdapter extends BaseAdapter {
         //Bind sữ liệu phần tử vào View
         Address address = (Address) getItem(position);
         ((TextView) viewAddress.findViewById(R.id.idAddress)).setText(String.format("ID = %d", address.getId()));
-        ((TextView) viewAddress.findViewById(R.id.nameCity)).setText(String.format("Tên city : %s", address.getCity()));
-        ((TextView) viewAddress.findViewById(R.id.nameDistrict)).setText(String.format("Ten district: %s", address.getDistrict()));
+        ((TextView) viewAddress.findViewById(R.id.nameCity)).setText(address.getCity());
+        ivStart = (ImageView) viewAddress.findViewById(R.id.ivStart);
+        ivDelete = (ImageView) viewAddress.findViewById(R.id.ivDelete);
 
+       ivStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+       ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return viewAddress;
     }
