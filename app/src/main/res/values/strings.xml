@@ -57,6 +57,7 @@
     <string name="newPassword">Mật khẩu mới</string>
     <string name="confirmNewPassword">Xác nhận mật khẩu</string>
     <string name="createQueue">Tạo hàng đợi</string>
+    <string name="seeQueue">Xem hàng chờ</string>
 
 
 </resources>

@@ -3,28 +3,46 @@ package com.example.squeue.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.squeue.R;
 import com.example.squeue.model.HomeMenu;
 import com.example.squeue.qr.QRCode;
 import com.example.squeue.queue.QueueLine;
 import com.example.squeue.statistics.StatisticsVaccine;
 import com.example.squeue.user.UserSetting;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
+    private String personName,personGivenName,personFamilyName,personEmail,personId;
+    private Uri personPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            personName = acct.getDisplayName();
+            personGivenName = acct.getGivenName();
+            personFamilyName = acct.getFamilyName();
+            personEmail = acct.getEmail();
+            personId = acct.getId();
+            personPhoto = acct.getPhotoUrl();
+
+            //Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
+        }
 
         List<HomeMenu> image_details = getListData();
         final GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -35,10 +53,6 @@ public class Home extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-//                Object o = gridView.getItemAtPosition(position);
-//                HomeMenu homeMenu = (HomeMenu) o;
-//                Toast.makeText(Home.this, "Selected :"
-//                        + " " + homeMenu, Toast.LENGTH_LONG).show();
                 if (position == 0) {
                     Intent in = new Intent(Home.this, QueueLine.class);
                     startActivity(in);
@@ -53,10 +67,15 @@ public class Home extends AppCompatActivity {
 
                 } else if (position == 3) {
                     Intent in = new Intent(Home.this, UserSetting.class);
+                    in.putExtra("personName", personName);
+                    in.putExtra("personEmail", personEmail);
+                    in.putExtra("personId", personId);
+                    in.putExtra("personPhoto", personPhoto);
                     startActivity(in);
                 }
             }
         });
+
     }
 
     private List<HomeMenu> getListData() {

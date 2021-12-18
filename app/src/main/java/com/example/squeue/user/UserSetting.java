@@ -1,5 +1,6 @@
 package com.example.squeue.user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,15 +16,22 @@ import com.example.squeue.R;
 import com.example.squeue.login.ChangePassword;
 import com.example.squeue.login.Login;
 import com.example.squeue.model.Account;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class UserSetting extends AppCompatActivity implements View.OnClickListener{
     private TextView tvEditUser;
     private EditText etUser_name, etUser_email, et_User_role, etUser_phoneNum;
+    private String personName, personEmail;
     private int EditUserStatus = 0;
     private LinearLayout layoutChangePassword;
     private Button btLogout;
     private ImageView ivBack,ivHome;
     private Account account;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,13 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
         init();
         setOnClick();
         loadUserToForm();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
 
@@ -46,6 +61,11 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
         ivHome = findViewById(R.id.ivHome);
         btLogout = findViewById(R.id.btLogout);
 
+        Bundle bundle = getIntent().getExtras();
+        personName = bundle.getString("personName");
+        personEmail = bundle.getString("personEmail");
+        etUser_name.setText(personName);
+        etUser_email.setText(personEmail);
     }
 
     public void setOnClick() {
@@ -91,8 +111,28 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
     public void changePassword() {
         Intent in = new Intent(this, ChangePassword.class);
         startActivity(in);
-
     }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == tvEditUser.getId()) {
@@ -106,6 +146,8 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
             finish();
         }
         else if (v.getId() == btLogout.getId()) {
+            signOut();
+            revokeAccess();
             Intent in = new Intent(this, Login.class);
             startActivity(in);
         }

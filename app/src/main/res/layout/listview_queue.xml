@@ -12,13 +12,15 @@
         android:id="@+id/idAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:text="1" />
 
     <TextView
         android:id="@+id/nameCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ProductName"
+        android:layout_marginLeft="5dp"
+        android:text="Name"
         android:textStyle="bold" />
 
     <TextView

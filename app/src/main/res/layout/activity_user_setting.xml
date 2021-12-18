@@ -179,7 +179,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="phone"
-                android:text="090xxx"
+                android:text="09046525xxx"
                 android:textColor="@color/blue_300"
                 android:textSize="14sp"
                 android:textStyle="bold" />
