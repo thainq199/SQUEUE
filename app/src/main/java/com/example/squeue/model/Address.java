@@ -3,6 +3,7 @@ package com.example.squeue.model;
 import java.io.Serializable;
 
 public class Address implements Serializable {
+    private int id;
     private String city;
     private String district;
     private String ward;
@@ -11,11 +12,25 @@ public class Address implements Serializable {
 
     }
 
+    public Address(int id, String city, String district, String ward) {
+        this.id = id;
+        this.city = city;
+        this.district = district;
+        this.ward = ward;
+    }
 
     public Address(String city, String district, String ward) {
         this.city = city;
         this.district = district;
         this.ward = ward;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCity() {

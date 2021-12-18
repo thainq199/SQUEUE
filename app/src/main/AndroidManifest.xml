@@ -33,6 +33,9 @@
             android:name=".queue.QueueLine"
             android:exported="false" />
         <activity
+            android:name=".queue.QueueManagement"
+            android:exported="false" />
+        <activity
             android:name=".home.Home"
             android:exported="false" />
         <activity

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.squeue.model.Address;
+import com.example.squeue.queue.QueueManagement;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -108,10 +109,11 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     }
 
     public void saveQR() {
-        //luu qr vao server
+        Toast.makeText(this,"Create Successfully",Toast.LENGTH_LONG).show();
+        //luu qr vao server ...
 
-        Toast.makeText(this,"Saved Successfully",Toast.LENGTH_LONG).show();
-
+        Intent in = new Intent(this, QueueManagement.class);
+        startActivity(in);
     }
 
     @Override
