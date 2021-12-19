@@ -59,6 +59,9 @@
     <string name="confirmNewPassword">Xác nhận mật khẩu</string>
     <string name="createQueue">Tạo hàng đợi</string>
     <string name="seeQueue">Xem hàng chờ</string>
+    <string name="vaccineType">Loại Vaccine</string>
+    <string name="pickDate">Chọn ngày</string>
+    <string name="pickTime">Chọn giờ</string>
 
 
 </resources>

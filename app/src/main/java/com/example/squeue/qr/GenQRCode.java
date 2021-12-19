@@ -33,7 +33,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private ImageView ivBack, ivHome, qrCodeIV;
     private TextView tvAddress;
     private Button btSaveQr;
-    private String city, district, ward, fullAddress;
+    private String city, district, ward, fullAddress, vaccineName, date, time;
     private Address address;
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
@@ -58,7 +58,12 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         city = bundle.getString("city");
         district = bundle.getString("district");
         ward = bundle.getString("ward");
-        fullAddress = city + ", " + district + ", " + ward;
+
+        vaccineName = bundle.getString("vaccine");
+        date = bundle.getString("date");
+        time = bundle.getString("time");
+
+        fullAddress = city + ", " + district + ", " + ward + ", " + vaccineName + ", " + date + ", " + time;
         tvAddress.setText(fullAddress);
         address = new Address(city,district,ward);
     }

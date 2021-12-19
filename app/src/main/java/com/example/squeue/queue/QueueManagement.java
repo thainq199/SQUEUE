@@ -61,6 +61,8 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
                 Address address = (Address) queueListViewAdapter.getItem(position);
                 //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
 
+                Intent in = new Intent(QueueManagement.this,ListCustomerQueue.class);
+                startActivity(in);
 
                 Toast.makeText(QueueManagement.this, address.getCity(), Toast.LENGTH_LONG).show();
             }
