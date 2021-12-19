@@ -13,7 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.squeue.R;
+import com.example.squeue.getAPI.JsonPlaceHolderApi;
+import com.example.squeue.getAPI.RetrofitInstance;
 import com.example.squeue.home.Home;
+import com.example.squeue.model.Token;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,6 +24,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etusername, etpassword;
@@ -96,10 +103,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            JsonPlaceHolderApi apiService = RetrofitInstance.getApiService();
+            apiService.login(new Token(account.getIdToken())).enqueue(new Callback<Token>() {
+                @Override
+                public void onResponse(Call<Token> call, Response<Token> response) {
+                    if(response.code()==200){
+                        // Signed in successfully, show authenticated UI.
+                        Intent in = new Intent(Login.this, Home.class);
+                        startActivity(in);
+                    }
+                }
 
-            // Signed in successfully, show authenticated UI.
-            Intent in = new Intent(this, Home.class);
-            startActivity(in);
+                @Override
+                public void onFailure(Call<Token> call, Throwable t) {
+                    Log.d("submitTest", "onFailure: " + t.getMessage());
+                }
+            });
+
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.

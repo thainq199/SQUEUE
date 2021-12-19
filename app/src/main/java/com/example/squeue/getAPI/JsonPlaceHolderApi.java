@@ -2,12 +2,19 @@ package com.example.squeue.getAPI;
 
 import com.example.squeue.model.City;
 import com.example.squeue.model.District;
+import com.example.squeue.model.Phuong;
+import com.example.squeue.model.Quan;
+import com.example.squeue.model.Todanpho;
+import com.example.squeue.model.Token;
+import com.example.squeue.model.Vaccine;
 import com.example.squeue.model.Ward;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface JsonPlaceHolderApi {
 
@@ -19,5 +26,20 @@ public interface JsonPlaceHolderApi {
 
     @GET("api/w/")
     Call<List<Ward>> getWard();
+
+    @POST("admins/login")
+    Call<Token> login(@Body Token token);
+
+    @GET("/vacxins")
+    Call<List<Vaccine>> getVaccine();
+
+    @GET("/phuongs")
+    Call<List<Quan>> getPhuong();
+
+    @GET("/quans")
+    Call<List<Phuong>> getQuan();
+
+    @GET("/todanphos")
+    Call<List<Todanpho>> getTodanpho();
 
 }
