@@ -53,17 +53,18 @@ public class QueueListViewAdapter extends BaseAdapter {
         ivStart = (ImageView) viewAddress.findViewById(R.id.ivStart);
         ivDelete = (ImageView) viewAddress.findViewById(R.id.ivDelete);
 
-       ivStart.setOnClickListener(new View.OnClickListener() {
+        ivStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ivStart.setImageResource(R.mipmap.pause);
             }
         });
 
-       ivDelete.setOnClickListener(new View.OnClickListener() {
+        ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listQueue.remove(position); //or some other task
+                notifyDataSetChanged();
             }
         });
 

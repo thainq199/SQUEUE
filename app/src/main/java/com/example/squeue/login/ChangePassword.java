@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.example.squeue.R;
 
-public class ChangePassword extends AppCompatActivity implements View.OnClickListener{
-    private EditText etnewPassword, etconfirmNewPassword,etcurrentPassword;
+public class ChangePassword extends AppCompatActivity implements View.OnClickListener {
+    private EditText etnewPassword, etconfirmNewPassword, etcurrentPassword;
     private Button btChangePassword;
     private int code = 0;
 
@@ -31,12 +31,12 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
         //popup
         etnewPassword = findViewById(R.id.etnewPassword);
         etconfirmNewPassword = findViewById(R.id.etconfirmNewPassword);
-        etcurrentPassword= findViewById(R.id.etcurrentPassword);
+        etcurrentPassword = findViewById(R.id.etcurrentPassword);
         btChangePassword = findViewById(R.id.btChangePassword);
 
         Bundle bundle = getIntent().getExtras();
         code = bundle.getInt("code");
-        if (code==1){
+        if (code == 1) {
             etcurrentPassword.setVisibility(View.VISIBLE);
         }
     }
@@ -46,15 +46,13 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
     }
 
     public void changePassword() {
-        if(etnewPassword.length() == 0 || etconfirmNewPassword.length() == 0 || etcurrentPassword.length() == 0){
-            Toast.makeText(this,"Mật khẩu không được trống",Toast.LENGTH_SHORT).show();
-        }
-        else if(!(etnewPassword.getText().toString().equals(etconfirmNewPassword.getText().toString()))){
-            Toast.makeText(this,"Mật khẩu không khớp nhau",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this,"Đổi mật khẩu thành công",Toast.LENGTH_LONG).show();
-            Intent in = new Intent(this,Login.class);
+        if (etnewPassword.length() == 0 || etconfirmNewPassword.length() == 0 || etcurrentPassword.length() == 0) {
+            Toast.makeText(this, "Mật khẩu không được trống", Toast.LENGTH_SHORT).show();
+        } else if (!(etnewPassword.getText().toString().equals(etconfirmNewPassword.getText().toString()))) {
+            Toast.makeText(this, "Mật khẩu không khớp nhau", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Đổi mật khẩu thành công", Toast.LENGTH_LONG).show();
+            Intent in = new Intent(this, Login.class);
             startActivity(in);
         }
     }

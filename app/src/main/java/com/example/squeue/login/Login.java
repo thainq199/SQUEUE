@@ -97,7 +97,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
 
-
             // Signed in successfully, show authenticated UI.
             Intent in = new Intent(this, Home.class);
             startActivity(in);
@@ -147,7 +146,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 //            }
 //            // [END get_auth_code]
 //        }
-  //  }
+        //  }
     }
 
     @Override

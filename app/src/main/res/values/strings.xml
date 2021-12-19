@@ -62,6 +62,10 @@
     <string name="vaccineType">Loại Vaccine</string>
     <string name="pickDate">Chọn ngày</string>
     <string name="pickTime">Chọn giờ</string>
+    <string name="listCustomer">Hàng chờ</string>
+    <string name="btNext">Served</string>
+    <string name="btBack">Backward</string>
+    <string name="btRear">Forward</string>
 
 
 </resources>

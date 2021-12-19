@@ -24,16 +24,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class UserSetting extends AppCompatActivity implements View.OnClickListener{
+public class UserSetting extends AppCompatActivity implements View.OnClickListener {
     private TextView tvEditUser;
     private EditText etUser_name, etUser_email, et_User_role, etUser_phoneNum;
     private int EditUserStatus = 0;
     private LinearLayout layoutChangePassword;
     private Button btLogout;
-    private ImageView ivBack,ivHome;
+    private ImageView ivBack, ivHome;
     private Account account;
     private GoogleSignInClient mGoogleSignInClient;
-    private String personName,personGivenName,personFamilyName,personEmail,personId;
+    private String personName, personGivenName, personFamilyName, personEmail, personId;
     private Uri personPhoto;
 
 
@@ -115,7 +115,7 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
     public void loadUserToForm() {
         //lay dl tu csdl
         //set text...
-        account = new Account("1","123","Nguyen Quoc Thai","thainq@gmail.com","Admin","0123");
+        account = new Account("1", "123", "Nguyen Quoc Thai", "thainq@gmail.com", "Admin", "0123");
         etUser_name.setText(account.getName());
         etUser_email.setText(account.getEmail());
         et_User_role.setText(account.getRole());
@@ -156,11 +156,9 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
             changePassword();
         } else if (v.getId() == ivBack.getId()) {
             finish();
-        }
-        else if (v.getId() == ivHome.getId()) {
+        } else if (v.getId() == ivHome.getId()) {
             finish();
-        }
-        else if (v.getId() == btLogout.getId()) {
+        } else if (v.getId() == btLogout.getId()) {
             signOut();
             revokeAccess();
             Intent in = new Intent(this, Login.class);

@@ -27,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class StatisticsVaccine extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
+public class StatisticsVaccine extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private ImageView ivBack, ivHome;
     private Button btSeeStats;
     private Spinner city, district, ward;

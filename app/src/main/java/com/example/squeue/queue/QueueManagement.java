@@ -18,7 +18,7 @@ import com.example.squeue.model.Address;
 
 import java.util.ArrayList;
 
-public class QueueManagement extends AppCompatActivity implements View.OnClickListener{
+public class QueueManagement extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivBack, ivHome;
     private ArrayList<Address> listQueue;
     QueueListViewAdapter queueListViewAdapter;
@@ -38,15 +38,15 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
         ivHome = findViewById(R.id.ivHome);
         listQueue = new ArrayList<>();
 
-        listQueue.add(new Address(1,"Ha Noi, Dong Da, Trung Tu","Dong Da","Trung Tu"));
-        listQueue.add(new Address(2,"HN","Dong Da","Trung Liet"));
-        listQueue.add(new Address(3,"HN","Ba Dinh","Phuc Xa "));
-        listQueue.add(new Address(4,"HN","Ba Dinh","Truc Bach"));
-        listQueue.add(new Address(5,"HN","Ba Dinh","Lieu Giai"));
-        listQueue.add(new Address(6,"HN","Hoan Kiem","Hang Buom"));
-        listQueue.add(new Address(7,"HN","Hoan Kiem","Hang Bong"));
-        listQueue.add(new Address(8,"HN","Hoan Kiem","Hang Bai"));
-        listQueue.add(new Address(9,"HN","Dong Da","O Cho Dua"));
+        listQueue.add(new Address(1, "Ha Noi, Dong Da, Trung Tu", "Dong Da", "Trung Tu"));
+        listQueue.add(new Address(2, "HN", "Dong Da", "Trung Liet"));
+        listQueue.add(new Address(3, "HN", "Ba Dinh", "Phuc Xa "));
+        listQueue.add(new Address(4, "HN", "Ba Dinh", "Truc Bach"));
+        listQueue.add(new Address(5, "HN", "Ba Dinh", "Lieu Giai"));
+        listQueue.add(new Address(6, "HN", "Hoan Kiem", "Hang Buom"));
+        listQueue.add(new Address(7, "HN", "Hoan Kiem", "Hang Bong"));
+        listQueue.add(new Address(8, "HN", "Hoan Kiem", "Hang Bai"));
+        listQueue.add(new Address(9, "HN", "Dong Da", "O Cho Dua"));
 
 
         queueListViewAdapter = new QueueListViewAdapter(listQueue);
@@ -61,10 +61,12 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
                 Address address = (Address) queueListViewAdapter.getItem(position);
                 //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
 
-                Intent in = new Intent(QueueManagement.this,ListCustomerQueue.class);
+                Intent in = new Intent(QueueManagement.this, ListCustomerQueue.class);
+                in.putExtra("id", address.getId());
+                in.putExtra("city", address.getCity());
                 startActivity(in);
 
-                Toast.makeText(QueueManagement.this, address.getCity(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(QueueManagement.this, address.getCity(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -91,7 +93,7 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-     if (v.getId() == ivBack.getId()) {
+        if (v.getId() == ivBack.getId()) {
             finish();
         } else if (v.getId() == ivHome.getId()) {
             Intent in = new Intent(this, Home.class);

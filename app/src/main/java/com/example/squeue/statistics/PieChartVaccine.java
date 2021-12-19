@@ -79,11 +79,11 @@ public class PieChartVaccine extends AppCompatActivity implements View.OnClickLi
 //                    customerList.get(i).getAddress().getDistrict().equals(district) &&
 //                    customerList.get(i).getAddress().getWard().equals(ward))
 //            {
-                if (customerList.get(i).getState() == 0) dose0++;
-                else if (customerList.get(i).getState() == 1) dose1++;
-                else if (customerList.get(i).getState() == 2) dose2++;
-                else if (customerList.get(i).getState() == 3) dose3++;
-           // }
+            if (customerList.get(i).getState() == 0) dose0++;
+            else if (customerList.get(i).getState() == 1) dose1++;
+            else if (customerList.get(i).getState() == 2) dose2++;
+            else if (customerList.get(i).getState() == 3) dose3++;
+            // }
         }
     }
 

@@ -50,7 +50,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     public void init() {
         ivBack = findViewById(R.id.ivBack);
         ivHome = findViewById(R.id.ivHome);
-        tvAddress =findViewById(R.id.tvAddress);
+        tvAddress = findViewById(R.id.tvAddress);
         qrCodeIV = findViewById(R.id.ivIVQrcode);
         btSaveQr = findViewById(R.id.btSaveQr);
 
@@ -65,7 +65,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
 
         fullAddress = city + ", " + district + ", " + ward + ", " + vaccineName + ", " + date + ", " + time;
         tvAddress.setText(fullAddress);
-        address = new Address(city,district,ward);
+        address = new Address(city, district, ward);
     }
 
     public void setOnClick() {
@@ -114,7 +114,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     }
 
     public void saveQR() {
-        Toast.makeText(this,"Create Successfully",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Create Successfully", Toast.LENGTH_LONG).show();
         //luu qr vao server ...
 
         Intent in = new Intent(this, QueueManagement.class);

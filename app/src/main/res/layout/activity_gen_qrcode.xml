@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:tools="http://schemas.android.com/tools"
-android:background="@color/gray_200"
-android:orientation="vertical"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:gravity="center_horizontal"
-tools:context=".qr.GenQRCode">
-
-
-<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="10dp"
-    android:layout_marginTop="20dp">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray_200"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    tools:context=".qr.GenQRCode">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:contentDescription="@string/todo"
-        android:focusable="true"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        app:srcCompat="@drawable/ic_back" />
 
-    <TextView
-        android:id="@+id/tvGenQR"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/qr"
-        android:textColor="@color/blue"
-        android:textSize="35sp"
-        android:layout_weight="2"
-        android:layout_marginRight="40dp" />
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
 
-    <ImageView
-        android:id="@+id/ivHome"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tvGenQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/qr"
+            android:textColor="@color/blue"
+            android:textSize="35sp"
+            android:layout_weight="2"
+            android:layout_marginRight="40dp" />
+
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_home" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:contentDescription="@string/todo"
-        android:focusable="true"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:src="@drawable/ic_home" />
-</LinearLayout>
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+        <ImageView
+            android:id="@+id/ivIVQrcode"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="40dp" />
 
-    <ImageView
-        android:id="@+id/ivIVQrcode"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="40dp"/>
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/TinhThanh" />
 
-    <TextView
-        android:id="@+id/tvAddress"
-        android:layout_width="wrap_content"
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btSaveQr"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="@string/TinhThanh" />
-
-
-</LinearLayout>
-
-
-<androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/btSaveQr"
-    android:layout_width="250dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
-    android:background="@drawable/background_button"
-    android:text="@string/createQueue"
-    android:textAllCaps="false"
-    android:textColor="@color/white"
-    android:textSize="25sp" />
+        android:layout_marginTop="50dp"
+        android:background="@drawable/background_button"
+        android:text="@string/createQueue"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
 
 </LinearLayout>
