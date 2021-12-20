@@ -7,6 +7,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,13 +31,17 @@ import androidx.core.content.ContextCompat;
 
 import com.example.squeue.MainActivity;
 import com.example.squeue.model.Address;
+import com.example.squeue.model.Qr;
 import com.example.squeue.queue.QueueManagement;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -45,6 +50,9 @@ import androidmads.library.qrgenearator.QRGEncoder;
 import com.example.squeue.R;
 import com.example.squeue.home.Home;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
@@ -52,13 +60,15 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private ImageView ivBack, ivHome, qrCodeIV;
     private TextView tvAddress;
     private Button btSaveQr;
-    private String city, district, ward, fullAddress, vaccineName, date, time;
+    private String city, district, ward, fullAddress, vaccineName, date, time, jsonQr;
     private Address address;
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
     private static final int STORAGE_PERMISSION_CODE = 101;
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private DatabaseReference root;
+    private int QrId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +102,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         // get the Firebase storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        root = FirebaseDatabase.getInstance().getReference().child("Image");
     }
 
     public void setOnClick() {
@@ -175,8 +186,23 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
                                                 Toast.LENGTH_LONG)
                                         .show();
                                 // lay link anh
-                                Uri downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
-                                Log.d("downloadUrl", "" + downloadUrl);
+                                ref.getDownloadUrl().addOnSuccessListener(
+                                        new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(@NonNull Uri uri) {
+                                                String downloadUrl = uri.toString();
+                                                //int qrId = root.push().getKey();
+                                                //Qr qrCode = new Qr(root.push().getKey(),downloadUrl,"QR Code");
+                                                Qr qrCode = new Qr(QrId++, downloadUrl, "QR Code");
+                                                Log.d("downloadUrl", "" + downloadUrl);
+
+                                                //post obj len server...
+                                                Gson gson = new Gson();
+                                                jsonQr = gson.toJson(qrCode);
+                                                //jsonQr=addQrJsonToServer(qrCode);
+                                                Log.d("jsonQr", "" + jsonQr);
+                                            }
+                                        });
                             }
                         })
 
@@ -255,6 +281,45 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    public String addQrJsonToServer(Qr qrcode) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", qrcode.getId());
+            jsonObject.put("duongdan", qrcode.getDuongdan());
+            jsonObject.put("mota", qrcode.getMota());
+
+            return jsonObject.toString();
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Fetching the stored data
+        // from the SharedPreference
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+
+        QrId = sh.getInt("QrId",QrId);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Creating a shared pref object
+        // with a file name "MySharedPref"
+        // in private mode
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        // write all the data entered by the user in SharedPreference and apply
+        myEdit.putInt("QrId", QrId);
+        myEdit.apply();
+    }
 
     @Override
     public void onClick(View v) {

@@ -2,15 +2,15 @@ package com.example.squeue.model;
 
 import java.io.Serializable;
 
-public class QrCode implements Serializable {
+public class Qr implements Serializable {
     private int id;
     private String duongdan;
     private String mota;
 
-    public QrCode() {
+    public Qr() {
     }
 
-    public QrCode(int id, String duongdan, String mota) {
+    public Qr(int id, String duongdan, String mota) {
         this.id = id;
         this.duongdan = duongdan;
         this.mota = mota;
