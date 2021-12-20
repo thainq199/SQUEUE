@@ -1,9 +1,16 @@
 package com.example.squeue.qr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,9 +25,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.squeue.MainActivity;
 import com.example.squeue.model.Address;
 import com.example.squeue.queue.QueueManagement;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -28,6 +44,9 @@ import androidmads.library.qrgenearator.QRGEncoder;
 
 import com.example.squeue.R;
 import com.example.squeue.home.Home;
+
+import java.io.ByteArrayOutputStream;
+import java.util.UUID;
 
 public class GenQRCode extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivBack, ivHome, qrCodeIV;
@@ -37,6 +56,9 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private Address address;
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
+    private static final int STORAGE_PERMISSION_CODE = 101;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +88,10 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         fullAddress = city + ", " + district + ", " + ward + ", " + vaccineName + ", " + date + ", " + time;
         tvAddress.setText(fullAddress);
         address = new Address(city, district, ward);
+
+        // get the Firebase storage reference
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
 
     public void setOnClick() {
@@ -114,17 +140,126 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     }
 
     public void saveQR() {
-        Toast.makeText(this, "Create Successfully", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Create Successfully", Toast.LENGTH_LONG).show();
         //luu qr vao server ...
+
+        // Code for showing progressDialog while uploading
+        ProgressDialog progressDialog
+                = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+
+        // Defining the child of storageReference
+        StorageReference ref
+                = storageReference
+                .child(
+                        "images/"
+                                + UUID.randomUUID().toString());
+
+        // adding listeners on upload
+        // or failure of image
+        ref.putFile(getImageUri(GenQRCode.this, bitmap))
+                .addOnSuccessListener(
+                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                            @Override
+                            public void onSuccess(
+                                    UploadTask.TaskSnapshot taskSnapshot) {
+
+                                // Image uploaded successfully
+                                // Dismiss dialog
+                                progressDialog.dismiss();
+                                Toast
+                                        .makeText(GenQRCode.this,
+                                                "Image Uploaded!!",
+                                                Toast.LENGTH_LONG)
+                                        .show();
+                                // lay link anh
+                                Uri downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
+                                Log.d("downloadUrl", "" + downloadUrl);
+                            }
+                        })
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        // Error, Image not uploaded
+                        progressDialog.dismiss();
+                        Toast
+                                .makeText(GenQRCode.this,
+                                        "Failed " + e.getMessage(),
+                                        Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                })
+                .addOnProgressListener(
+                        new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                            // Progress Listener for loading
+                            // percentage on the dialog box
+                            @Override
+                            public void onProgress(
+                                    UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress
+                                        = (100.0
+                                        * taskSnapshot.getBytesTransferred()
+                                        / taskSnapshot.getTotalByteCount());
+                                progressDialog.setMessage(
+                                        "Uploaded "
+                                                + (int) progress + "%");
+                            }
+                        });
 
         Intent in = new Intent(this, QueueManagement.class);
         startActivity(in);
     }
 
+    // Function to check and request permission.
+    public void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(GenQRCode.this, permission) == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(GenQRCode.this, new String[]{permission}, requestCode);
+        } else {
+            saveQR();
+            //Toast.makeText(GenQRCode.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    // This function is called when user accept or decline the permission.
+// Request Code is used to check which permission called this function.
+// This request code is provided when user is prompt for permission.
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                saveQR();
+
+                Toast.makeText(GenQRCode.this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(GenQRCode.this, "Storage Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
         if (v.getId() == btSaveQr.getId()) {
-            saveQR();
+            checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
         } else if (v.getId() == ivBack.getId()) {
             finish();
         } else if (v.getId() == ivHome.getId()) {

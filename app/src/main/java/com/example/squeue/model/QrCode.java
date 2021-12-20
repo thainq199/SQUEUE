@@ -2,17 +2,17 @@ package com.example.squeue.model;
 
 import java.io.Serializable;
 
-public class Quan implements Serializable {
+public class QrCode implements Serializable {
     private int id;
-    private String ten;
+    private String duongdan;
     private String mota;
 
-    public Quan() {
+    public QrCode() {
     }
 
-    public Quan(int id, String ten, String mota) {
+    public QrCode(int id, String duongdan, String mota) {
         this.id = id;
-        this.ten = ten;
+        this.duongdan = duongdan;
         this.mota = mota;
     }
 
@@ -24,12 +24,12 @@ public class Quan implements Serializable {
         this.id = id;
     }
 
-    public String getTen() {
-        return ten;
+    public String getDuongdan() {
+        return duongdan;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setDuongdan(String duongdan) {
+        this.duongdan = duongdan;
     }
 
     public String getMota() {

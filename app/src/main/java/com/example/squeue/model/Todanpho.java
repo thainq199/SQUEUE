@@ -3,24 +3,24 @@ package com.example.squeue.model;
 import java.io.Serializable;
 
 public class Todanpho implements Serializable {
-    private String id;
+    private int id;
     private String ten;
     private String mota;
 
     public Todanpho() {
     }
 
-    public Todanpho(String id, String ten, String mota) {
+    public Todanpho(int id, String ten, String mota) {
         this.id = id;
         this.ten = ten;
         this.mota = mota;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
