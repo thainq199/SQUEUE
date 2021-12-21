@@ -99,8 +99,8 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         vaccineName = bundle.getString("vaccine");
         date = bundle.getString("date");
         time = bundle.getString("time");
-        startTime = bundle.getInt("startTime");
-        endTime = bundle.getInt("endTime");
+        startTime = bundle.getLong("startTime");
+        endTime = bundle.getLong("endTime");
         qr_id = getSharedPreference();
 
         fullAddress = city + ", " + district + ", " + ward + ", " + todanpho + ", " + vaccineName + ", " + date + ", " + time;

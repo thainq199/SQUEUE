@@ -42,11 +42,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -69,9 +72,9 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     private List<Phuong> wardsList;
     private List<Todanpho> todanphoList;
     private List<Vaccine> vaccineList;
-    private String spinnerCity, spinnerDistrict, spinnerWard, spinnerVaccine,spinnertoDanPho, dateText, timeText;
+    private String spinnerCity, spinnerDistrict, spinnerWard, spinnerVaccine, spinnertoDanPho, dateText, timeText;
     private int province_code = 1, district_code = 1, todanpho_id, qr_id;
-    private long startTime, endTime;
+    private long startTime, endTime, timeInMilliseconds;
 
 
     @Override
@@ -80,7 +83,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.activity_qrcode);
         init();
         setOnClick();
-        getAPI();
+        //getAPI();
     }
 
     public void init() {
@@ -396,6 +399,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
         //date time
     }
+
     public void genQR() {
 
         //truyen address sang GenQR
@@ -422,8 +426,8 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         spinnerVaccine = vaccine.getSelectedItem().toString();
         spinnertoDanPho = todanpho.getSelectedItem().toString();
         for (int i = 0; i < todanphoList.size(); i++) {
-            if(todanphoList.get(i).getTen().equals(spinnertoDanPho)){
-                todanpho_id=todanphoList.get(i).getId();
+            if (todanphoList.get(i).getTen().equals(spinnertoDanPho)) {
+                todanpho_id = todanphoList.get(i).getId();
             }
         }
     }
@@ -433,7 +437,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
     }
 
-    private void handleDateButton() {
+    private void handleDateButton(int d) {
         Calendar calendar = Calendar.getInstance();
         int YEAR = calendar.get(Calendar.YEAR);
         int MONTH = calendar.get(Calendar.MONTH);
@@ -448,13 +452,15 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 calendar1.set(Calendar.MONTH, month);
                 calendar1.set(Calendar.DATE, date);
                 dateText = DateFormat.format("yyyy-MM-dd", calendar1).toString();
-
+                if (d == 1)
+                    tvDate.setText(dateText);
+                else tvEndDate.setText(dateText);
             }
         }, YEAR, MONTH, DATE);
         datePickerDialog.show();
     }
 
-    private void handleTimeButton() {
+    private void handleTimeButton(int d) {
         Calendar calendar = Calendar.getInstance();
         int HOUR = calendar.get(Calendar.HOUR);
         int MINUTE = calendar.get(Calendar.MINUTE);
@@ -468,30 +474,35 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 calendar1.set(Calendar.HOUR, hour);
                 calendar1.set(Calendar.MINUTE, minute);
                 timeText = DateFormat.format("HH:mm:ss", calendar1).toString();
-
-
+                if (d == 1)
+                    tvTime.setText(timeText);
+                else tvEndTime.setText(timeText);
             }
         }, HOUR, MINUTE, is24HourFormat);
 
         timePickerDialog.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public long convertDate(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+    public long convertDate() {
         String givenDateString = dateText+" "+timeText;
-        long timeInMilliseconds = OffsetDateTime.parse(givenDateString, formatter)
-                .toInstant()
-                .toEpochMilli();
-        Log.d("Date in milli:" ,"" +timeInMilliseconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date mDate = sdf.parse(givenDateString);
+            timeInMilliseconds = mDate.getTime()/1000;
+            Log.d("Date in milli :: " ,""+timeInMilliseconds);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return timeInMilliseconds;
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         if (v.getId() == btGenQR.getId()) {
+            endTime = convertDate();
+            Log.d("End time: " ,""+endTime);
             genQR();
         } else if (v.getId() == ivBack.getId()) {
             finish();
@@ -499,20 +510,16 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
             Intent in = new Intent(this, Home.class);
             startActivity(in);
         } else if (v.getId() == btDate.getId()) {
-            handleDateButton();
-            tvDate.setText(dateText);
+            handleDateButton(1);
         } else if (v.getId() == btTime.getId()) {
-            handleTimeButton();
-            tvTime.setText(timeText);
+            handleTimeButton(1);
+
+        } else if (v.getId() == btEndDate.getId()) {
+            handleDateButton(2);
             startTime = convertDate();
-        }
-        else if (v.getId() == btEndDate.getId()) {
-            handleDateButton();
-            tvEndDate.setText(dateText);
+            Log.d("Start time: " ,""+startTime);
         } else if (v.getId() == btEndTime.getId()) {
-            handleTimeButton();
-            tvEndTime.setText(timeText);
-            endTime=convertDate();
+            handleTimeButton(2);
         }
     }
 }
