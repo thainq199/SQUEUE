@@ -3,24 +3,24 @@ package com.example.squeue.model;
 import java.io.Serializable;
 
 public class Vaccine implements Serializable {
-    private String id;
+    private int id;
     private String ten;
     private String mota;
 
     public Vaccine() {
     }
 
-    public Vaccine(String id, String ten, String mota) {
+    public Vaccine(int id, String ten, String mota) {
         this.id = id;
         this.ten = ten;
         this.mota = mota;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

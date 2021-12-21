@@ -10,7 +10,7 @@ public class Quan implements Serializable {
     public Quan() {
     }
 
-    public Quan(int id, String ten, String mota) {
+    public Quan(int id, String ten, String mota, int quan_id) {
         this.id = id;
         this.ten = ten;
         this.mota = mota;

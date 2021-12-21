@@ -27,6 +27,10 @@ import com.example.squeue.home.Home;
 import com.example.squeue.model.Address;
 import com.example.squeue.model.City;
 import com.example.squeue.model.District;
+import com.example.squeue.model.Phuong;
+import com.example.squeue.model.Quan;
+import com.example.squeue.model.Todanpho;
+import com.example.squeue.model.Vaccine;
 import com.example.squeue.model.Ward;
 
 
@@ -54,13 +58,14 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     private ImageView ivBack, ivHome;
     private Button btGenQR, btDate, btTime;
     private TextView tvDate, tvTime;
-    private Spinner city, district, ward, vaccine;
+    private Spinner city, district, ward, vaccine, todanpho;
     private List<City> cityList;
-    private List<District> districtsList;
-    private List<Ward> wardsList;
-    private List<String> vaccineList;
-    private String spinnerCity, spinnerDistrict, spinnerWard, spinnerVaccine, dateText, timeText;
-    private int province_code = 1, district_code = 1;
+    private List<Quan> districtsList;
+    private List<Phuong> wardsList;
+    private List<Todanpho> todanphoList;
+    private List<Vaccine> vaccineList;
+    private String spinnerCity, spinnerDistrict, spinnerWard, spinnerVaccine,spinnertoDanPho, dateText, timeText;
+    private int province_code = 1, district_code = 1, todanpho_id, qr_id;
 
 
     @Override
@@ -79,6 +84,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         city = findViewById(R.id.spinnerCity);
         district = findViewById(R.id.spinnerDistrict);
         ward = findViewById(R.id.spinnerWard);
+        todanpho = findViewById(R.id.spinnerTodanpho);
         vaccine = findViewById(R.id.spinnerVaccine);
         btDate = findViewById(R.id.btDate);
         btTime = findViewById(R.id.btTime);
@@ -94,6 +100,134 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         btTime.setOnClickListener(this);
     }
 
+//    public void getAPI() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://provinces.open-api.vn/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+//
+//        Call<List<City>> citiCall = jsonPlaceHolderApi.getCitis();
+//        Call<List<District>> districtCall = jsonPlaceHolderApi.getDistrict();
+//        Call<List<Ward>> wardCall = jsonPlaceHolderApi.getWard();
+//
+//        citiCall.enqueue(new Callback<List<City>>() {
+//            @Override
+//            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
+//
+//                if (!response.isSuccessful()) {
+//                    return;
+//                }
+//
+//                cityList = response.body();
+//
+//                ArrayList<String> listCities = new ArrayList<>();
+//                for (int i = 0; i < cityList.size(); i++) {
+//                    listCities.add(cityList.get(i).getName());
+//                    //Log.i("City", cityList.get(i).getName());
+//                }
+//
+//                //lay province code
+//
+//                for (int i = 0; i < cityList.size(); i++) {
+//                    // if(cityList.get(i).getName().equals(spinnerCity)){
+//                    province_code = cityList.get(i).getCode();
+//                    // }
+//                }
+//
+//                ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listCities);
+//                city.setAdapter(cityAdapter);
+//                city.setOnItemSelectedListener(QRCode.this);
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<List<City>> call, Throwable t) {
+//            }
+//        });
+//
+//        districtCall.enqueue(new Callback<List<District>>() {
+//            @Override
+//            public void onResponse(Call<List<District>> call, Response<List<District>> response) {
+//
+//                if (!response.isSuccessful()) {
+//                    return;
+//                }
+//
+//                districtsList = response.body();
+//
+//                ArrayList<String> listDistrict = new ArrayList<>();
+//                for (int i = 0; i < districtsList.size(); i++) {
+//                    // if(districtsList.get(i).getProvince_code()==province_code){
+//                    listDistrict.add(districtsList.get(i).getName());
+//                    // }
+//                }
+//
+//                //lay district code
+//
+//                for (int i = 0; i < districtsList.size(); i++) {
+//                    // if(districtsList.get(i).getName().equals(spinnerDistrict)){
+//                    district_code = districtsList.get(i).getCode();
+//                    // }
+//                }
+//
+//                ArrayAdapter<String> districtAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listDistrict);
+//                district.setAdapter(districtAdapter);
+//                district.setOnItemSelectedListener(QRCode.this);
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<List<District>> call, Throwable t) {
+//            }
+//        });
+//
+//        wardCall.enqueue(new Callback<List<Ward>>() {
+//            @Override
+//            public void onResponse(Call<List<Ward>> call, Response<List<Ward>> response) {
+//
+//                if (!response.isSuccessful()) {
+//                    return;
+//                }
+//
+//                wardsList = response.body();
+//
+//                ArrayList<String> listWards = new ArrayList<>();
+//                for (int i = 0; i < wardsList.size(); i++) {
+//                    //if(wardsList.get(i).getDistrict_code()==district_code) {
+//                    listWards.add(wardsList.get(i).getName());
+//                    //}
+//                }
+//
+//                ArrayAdapter<String> wardAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listWards);
+//                ward.setAdapter(wardAdapter);
+//                ward.setOnItemSelectedListener(QRCode.this);
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<List<Ward>> call, Throwable t) {
+//
+//            }
+//        });
+//
+//        //vaccine
+//        vaccineList = new ArrayList<>();
+//        vaccineList.add("Moderna");
+//        vaccineList.add("Sinovac");
+//        vaccineList.add("AstraZeneca");
+//        vaccineList.add("Pfizer");
+//        vaccineList.add("Sinopharm");
+//        vaccineList.add("Sputnik");
+//
+//        ArrayAdapter<String> vaccineAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, vaccineList);
+//        vaccine.setAdapter(vaccineAdapter);
+//        vaccine.setOnItemSelectedListener(QRCode.this);
+//
+//        //date time
+//    }
+
     public void getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://provinces.open-api.vn/")
@@ -102,48 +236,14 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        Call<List<City>> citiCall = jsonPlaceHolderApi.getCitis();
-        Call<List<District>> districtCall = jsonPlaceHolderApi.getDistrict();
-        Call<List<Ward>> wardCall = jsonPlaceHolderApi.getWard();
+        Call<List<Quan>> districtCall = jsonPlaceHolderApi.getQuan();
+        Call<List<Phuong>> wardCall = jsonPlaceHolderApi.getPhuong();
+        Call<List<Todanpho>> TodanphoCall = jsonPlaceHolderApi.getTodanpho();
+        Call<List<Vaccine>> VaccineCall = jsonPlaceHolderApi.getVaccine();
 
-        citiCall.enqueue(new Callback<List<City>>() {
+        districtCall.enqueue(new Callback<List<Quan>>() {
             @Override
-            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                cityList = response.body();
-
-                ArrayList<String> listCities = new ArrayList<>();
-                for (int i = 0; i < cityList.size(); i++) {
-                    listCities.add(cityList.get(i).getName());
-                    //Log.i("City", cityList.get(i).getName());
-                }
-
-                //lay province code
-
-                for (int i = 0; i < cityList.size(); i++) {
-                    // if(cityList.get(i).getName().equals(spinnerCity)){
-                    province_code = cityList.get(i).getCode();
-                    // }
-                }
-
-                ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listCities);
-                city.setAdapter(cityAdapter);
-                city.setOnItemSelectedListener(QRCode.this);
-            }
-
-
-            @Override
-            public void onFailure(Call<List<City>> call, Throwable t) {
-            }
-        });
-
-        districtCall.enqueue(new Callback<List<District>>() {
-            @Override
-            public void onResponse(Call<List<District>> call, Response<List<District>> response) {
+            public void onResponse(Call<List<Quan>> call, Response<List<Quan>> response) {
 
                 if (!response.isSuccessful()) {
                     return;
@@ -154,7 +254,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 ArrayList<String> listDistrict = new ArrayList<>();
                 for (int i = 0; i < districtsList.size(); i++) {
                     // if(districtsList.get(i).getProvince_code()==province_code){
-                    listDistrict.add(districtsList.get(i).getName());
+                    listDistrict.add(districtsList.get(i).getTen());
                     // }
                 }
 
@@ -162,7 +262,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
                 for (int i = 0; i < districtsList.size(); i++) {
                     // if(districtsList.get(i).getName().equals(spinnerDistrict)){
-                    district_code = districtsList.get(i).getCode();
+                    district_code = districtsList.get(i).getId();
                     // }
                 }
 
@@ -173,13 +273,13 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
 
             @Override
-            public void onFailure(Call<List<District>> call, Throwable t) {
+            public void onFailure(Call<List<Quan>> call, Throwable t) {
             }
         });
 
-        wardCall.enqueue(new Callback<List<Ward>>() {
+        wardCall.enqueue(new Callback<List<Phuong>>() {
             @Override
-            public void onResponse(Call<List<Ward>> call, Response<List<Ward>> response) {
+            public void onResponse(Call<List<Phuong>> call, Response<List<Phuong>> response) {
 
                 if (!response.isSuccessful()) {
                     return;
@@ -190,7 +290,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 ArrayList<String> listWards = new ArrayList<>();
                 for (int i = 0; i < wardsList.size(); i++) {
                     //if(wardsList.get(i).getDistrict_code()==district_code) {
-                    listWards.add(wardsList.get(i).getName());
+                    listWards.add(wardsList.get(i).getTen());
                     //}
                 }
 
@@ -201,33 +301,97 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
 
             @Override
-            public void onFailure(Call<List<Ward>> call, Throwable t) {
+            public void onFailure(Call<List<Phuong>> call, Throwable t) {
 
             }
         });
 
-        //vaccine
-        vaccineList = new ArrayList<>();
-        vaccineList.add("Moderna");
-        vaccineList.add("Sinovac");
-        vaccineList.add("AstraZeneca");
-        vaccineList.add("Pfizer");
-        vaccineList.add("Sinopharm");
-        vaccineList.add("Sputnik");
+        TodanphoCall.enqueue(new Callback<List<Todanpho>>() {
+            @Override
+            public void onResponse(Call<List<Todanpho>> call, Response<List<Todanpho>> response) {
 
-        ArrayAdapter<String> vaccineAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, vaccineList);
-        vaccine.setAdapter(vaccineAdapter);
-        vaccine.setOnItemSelectedListener(QRCode.this);
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                todanphoList = response.body();
+
+                ArrayList<String> listTodanpho = new ArrayList<>();
+                for (int i = 0; i < todanphoList.size(); i++) {
+                    //if(wardsList.get(i).getDistrict_code()==district_code) {
+                    listTodanpho.add(todanphoList.get(i).getTen());
+                    //}
+                }
+
+                ArrayAdapter<String> todanphoAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listTodanpho);
+                todanpho.setAdapter(todanphoAdapter);
+                todanpho.setOnItemSelectedListener(QRCode.this);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<Todanpho>> call, Throwable t) {
+
+            }
+        });
+
+        VaccineCall.enqueue(new Callback<List<Vaccine>>() {
+            @Override
+            public void onResponse(Call<List<Vaccine>> call, Response<List<Vaccine>> response) {
+
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                vaccineList = response.body();
+
+                ArrayList<String> listVaccine = new ArrayList<>();
+                for (int i = 0; i < vaccineList.size(); i++) {
+                    //if(wardsList.get(i).getDistrict_code()==district_code) {
+                    listVaccine.add(vaccineList.get(i).getTen());
+                    //}
+                }
+
+                ArrayAdapter<String> vaccineAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listVaccine);
+                vaccine.setAdapter(vaccineAdapter);
+                vaccine.setOnItemSelectedListener(QRCode.this);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<Vaccine>> call, Throwable t) {
+
+            }
+        });
+        ArrayList<String> listCity = new ArrayList<>();
+        listCity.add("Thành phố Hà Nội");
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, listCity);
+        city.setAdapter(cityAdapter);
+        city.setOnItemSelectedListener(QRCode.this);
+
+        //vaccine
+//        vaccineList = new ArrayList<>();
+//        vaccineList.add("Moderna");
+//        vaccineList.add("Sinovac");
+//        vaccineList.add("AstraZeneca");
+//        vaccineList.add("Pfizer");
+//        vaccineList.add("Sinopharm");
+//        vaccineList.add("Sputnik");
+
+//        ArrayAdapter<String> vaccineAdapter = new ArrayAdapter<>(QRCode.this, android.R.layout.simple_spinner_dropdown_item, vaccineList);
+//        vaccine.setAdapter(vaccineAdapter);
+//        vaccine.setOnItemSelectedListener(QRCode.this);
 
         //date time
     }
-
     public void genQR() {
         //truyen address sang GenQR
         Intent in = new Intent(this, GenQRCode.class);
         in.putExtra("city", spinnerCity);
         in.putExtra("district", spinnerDistrict);
         in.putExtra("ward", spinnerWard);
+        in.putExtra("todanpho", spinnertoDanPho);
+        in.putExtra("todanpho_id", todanpho_id);
         in.putExtra("vaccine", spinnerVaccine);
         in.putExtra("date", dateText);
         in.putExtra("time", timeText);
@@ -241,6 +405,12 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         spinnerDistrict = district.getSelectedItem().toString();
         spinnerWard = ward.getSelectedItem().toString();
         spinnerVaccine = vaccine.getSelectedItem().toString();
+        spinnertoDanPho = todanpho.getSelectedItem().toString();
+        for (int i = 0; i < todanphoList.size(); i++) {
+            if(todanphoList.get(i).getTen().equals(spinnertoDanPho)){
+                todanpho_id=todanphoList.get(i).getId();
+            }
+        }
     }
 
     @Override
@@ -262,7 +432,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 calendar1.set(Calendar.YEAR, year);
                 calendar1.set(Calendar.MONTH, month);
                 calendar1.set(Calendar.DATE, date);
-                dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString();
+                dateText = DateFormat.format("yyyy-MM-dd", calendar1).toString();
 
                 tvDate.setText(dateText);
             }
@@ -283,7 +453,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.set(Calendar.HOUR, hour);
                 calendar1.set(Calendar.MINUTE, minute);
-                timeText = DateFormat.format("h:mm a", calendar1).toString();
+                timeText = DateFormat.format("HH:mm:ss", calendar1).toString();
 
                 tvTime.setText(timeText);
             }

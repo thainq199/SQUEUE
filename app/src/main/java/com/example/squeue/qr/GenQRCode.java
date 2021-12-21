@@ -17,19 +17,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.squeue.MainActivity;
+import com.example.squeue.getAPI.JsonPlaceHolderApi;
 import com.example.squeue.model.Address;
 import com.example.squeue.model.Qr;
 import com.example.squeue.queue.QueueManagement;
@@ -46,6 +43,11 @@ import com.google.zxing.WriterException;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.example.squeue.R;
 import com.example.squeue.home.Home;
@@ -60,7 +62,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private ImageView ivBack, ivHome, qrCodeIV;
     private TextView tvAddress;
     private Button btSaveQr;
-    private String city, district, ward, fullAddress, vaccineName, date, time, jsonQr;
+    private String city, district, ward, fullAddress, vaccineName, date, time, jsonQr, todanpho, qr_string;
     private Address address;
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
@@ -68,7 +70,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference root;
-    private int QrId = 1;
+    private int QrId = 1, todanpho_id, qr_id ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,19 +92,25 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         city = bundle.getString("city");
         district = bundle.getString("district");
         ward = bundle.getString("ward");
+        todanpho = bundle.getString("todanpho");
+        todanpho_id = bundle.getInt("todanpho_id");
 
         vaccineName = bundle.getString("vaccine");
         date = bundle.getString("date");
         time = bundle.getString("time");
+        qr_id = getSharedPreference();
 
-        fullAddress = city + ", " + district + ", " + ward + ", " + vaccineName + ", " + date + ", " + time;
+        fullAddress = city + ", " + district + ", " + ward + ", " + todanpho + ", " + vaccineName + ", " + date + ", " + time;
         tvAddress.setText(fullAddress);
         address = new Address(city, district, ward);
+
+        qr_string = "" + todanpho_id + ", " + qr_id  + ", " +
 
         // get the Firebase storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         root = FirebaseDatabase.getInstance().getReference().child("Image");
+
     }
 
     public void setOnClick() {
@@ -135,7 +143,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
 
         // setting this dimensions inside our qr code
         // encoder to generate our qr code.
-        qrgEncoder = new QRGEncoder(fullAddress, null, QRGContents.Type.TEXT, dimen);
+        qrgEncoder = new QRGEncoder(qr_string, null, QRGContents.Type.TEXT, dimen);
         try {
             // getting our qrcode in the form of bitmap.
             bitmap = qrgEncoder.encodeAsBitmap();
@@ -193,13 +201,17 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
                                                 String downloadUrl = uri.toString();
                                                 //int qrId = root.push().getKey();
                                                 //Qr qrCode = new Qr(root.push().getKey(),downloadUrl,"QR Code");
-                                                Qr qrCode = new Qr(QrId++, downloadUrl, "QR Code");
+
+                                                int id = getSharedPreference();
+                                                Qr qrCode = new Qr(id, downloadUrl, "QR Code");
                                                 Log.d("downloadUrl", "" + downloadUrl);
+                                                setSharedPreference(++id);
 
                                                 //post obj len server...
                                                 Gson gson = new Gson();
                                                 jsonQr = gson.toJson(qrCode);
                                                 //jsonQr=addQrJsonToServer(qrCode);
+                                                postData(jsonQr);
                                                 Log.d("jsonQr", "" + jsonQr);
                                             }
                                         });
@@ -260,6 +272,32 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         return Uri.parse(path);
     }
 
+    public void postData(String qr_code){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        // below line is to create an instance for our retrofit api class.
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        // calling a method to create a post and passing our modal class.
+        Call<Qr> call = jsonPlaceHolderApi.createQr(qr_code);
+
+        // on below line we are executing our method.
+        call.enqueue(new Callback<Qr>() {
+            @Override
+            public void onResponse(Call<Qr> call, Response<Qr> response) {
+                // this method is called when we get response from our api.
+                Toast.makeText(GenQRCode.this, "Data added to API", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Qr> call, Throwable t) {
+
+            }
+        });
+    }
+
     // This function is called when user accept or decline the permission.
 // Request Code is used to check which permission called this function.
 // This request code is provided when user is prompt for permission.
@@ -296,20 +334,13 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Fetching the stored data
-        // from the SharedPreference
+    public int getQrId(){
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-
         QrId = sh.getInt("QrId",QrId);
+        return QrId;
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
 
+    public void setSharedPreference(int id){
         // Creating a shared pref object
         // with a file name "MySharedPref"
         // in private mode
@@ -317,8 +348,15 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
         // write all the data entered by the user in SharedPreference and apply
-        myEdit.putInt("QrId", QrId);
+        myEdit.putInt("QrId", id);
         myEdit.apply();
+    }
+    public int getSharedPreference(){
+        // Fetching the stored data
+        // from the SharedPreference
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        QrId = sh.getInt("QrId",1);
+        return QrId;
     }
 
     @Override

@@ -23,10 +23,10 @@ public class PieChartVaccine extends AppCompatActivity implements View.OnClickLi
     private ImageView ivBack, ivHome;
     private TextView tvDose0, tvDose1, tvDose2, tvDose3;
     private PieChart pieChart;
-    private String city, district, ward, fullAddress;
+    private String city, district, ward, fullAddress, todanpho;
     private Address address;
     private Customer customer;
-    private int dose0 = 0, dose1 = 0, dose2 = 0, dose3 = 0;
+    private int dose0 = 0, dose1 = 0, dose2 = 0, dose3 = 0, todanpho_id;
     private ArrayList<Customer> customerList;
 
     @Override
@@ -54,11 +54,47 @@ public class PieChartVaccine extends AppCompatActivity implements View.OnClickLi
         ivHome.setOnClickListener(this);
     }
 
+//    public void getDataFromServer() {
+//        Bundle bundle = getIntent().getExtras();
+//        city = bundle.getString("city");
+//        district = bundle.getString("district");
+//        ward = bundle.getString("ward");
+//        //lay 1 list customer
+//
+//        //dem customer.state
+//        customerList = new ArrayList<>();
+//        customerList.add(new Customer("0", "2", "3", "4", null, 0));
+//        customerList.add(new Customer("1", "2", "3", "4", null, 1));
+//        customerList.add(new Customer("2", "2", "3", "4", null, 2));
+//        customerList.add(new Customer("3", "2", "3", "4", null, 3));
+//        customerList.add(new Customer("4", "2", "3", "4", null, 0));
+//        customerList.add(new Customer("5", "2", "3", "4", null, 1));
+//        customerList.add(new Customer("6", "2", "3", "4", null, 2));
+//        customerList.add(new Customer("7", "2", "3", "4", null, 2));
+//        customerList.add(new Customer("8", "2", "3", "4", null, 2));
+//        customerList.add(new Customer("9", "2", "3", "4", null, 2));
+//
+//        for (int i = 0; i < customerList.size(); i++) {
+////            if (customerList.get(i).getAddress().getCity().equals(city) &&
+////                    customerList.get(i).getAddress().getDistrict().equals(district) &&
+////                    customerList.get(i).getAddress().getWard().equals(ward))
+////            {
+//            if (customerList.get(i).getState() == 0) dose0++;
+//            else if (customerList.get(i).getState() == 1) dose1++;
+//            else if (customerList.get(i).getState() == 2) dose2++;
+//            else if (customerList.get(i).getState() == 3) dose3++;
+//            // }
+//        }
+//    }
+
     public void getDataFromServer() {
         Bundle bundle = getIntent().getExtras();
         city = bundle.getString("city");
         district = bundle.getString("district");
         ward = bundle.getString("ward");
+        todanpho = bundle.getString("todanpho");
+        todanpho_id = bundle.getInt("todanpho_id");
+
         //lay 1 list customer
 
         //dem customer.state

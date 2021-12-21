@@ -6,14 +6,25 @@ public class Phuong implements Serializable {
     private int id;
     private String ten;
     private String mota;
+    private int phuong_id;
 
     public Phuong() {
     }
 
-    public Phuong(int id, String ten, String mota) {
+
+    public Phuong(int id, String ten, String mota, int phuong_id) {
         this.id = id;
         this.ten = ten;
         this.mota = mota;
+        this.phuong_id = phuong_id;
+    }
+
+    public int getPhuong_id() {
+        return phuong_id;
+    }
+
+    public void setPhuong_id(int phuong_id) {
+        this.phuong_id = phuong_id;
     }
 
     public int getId() {

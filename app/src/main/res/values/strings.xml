@@ -30,6 +30,7 @@
     <string name="TinhThanh">Tỉnh/Thành Phố</string>
     <string name="QuanHuyen">Quận/Huyện</string>
     <string name="Phuong">Phường</string>
+    <string name="Todanpho">Tổ dân phố</string>
     <string name="GenQR">Generate QR Code</string>
     <string name="SaveQR">Save QR Code</string>
     <string name="thongke">Thống kê</string>

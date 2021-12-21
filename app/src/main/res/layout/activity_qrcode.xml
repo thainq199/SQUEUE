@@ -147,6 +147,33 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tvTodanpho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/Todanpho"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinnerTodanpho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="10dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
                 android:id="@+id/tvVaccine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
