@@ -12,21 +12,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.squeue.R;
+import com.example.squeue.getAPI.JsonPlaceHolderApi;
 import com.example.squeue.home.Home;
 import com.example.squeue.model.Address;
 import com.example.squeue.model.Customer;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListCustomerQueue extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivBack, ivHome;
     private Button btNext, btBack, btRear;
     private TextView tvCustomerName, tvCustomerId;
-    private Customer customer;
-    private ArrayList<Customer> listCustomer;
-    private int id;
+    private List<Customer> listCustomer;
+    private int id, todanpho_id;
     private String city, fullInfo, fullInfo2;
     private Queue<Customer> queueCustomer;
 
@@ -56,16 +63,18 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
         listCustomer = new ArrayList<>();
         queueCustomer = new LinkedList<>();
 
-        queueCustomer.add(new Customer("001045006121", "Nguyen Van Hoai Nam", "20/3/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Trung Tu"), 1));
-        queueCustomer.add(new Customer("001045006122", "Nam 2", "10/11/1999", "012345435479",
-                new Address("Ha Noi", "Dong Da", "Trung Liet"), 2));
-        queueCustomer.add(new Customer("001045006123", "Nam 3", "6/5/1999", "0123456879",
-                new Address("Ha Noi", "Hoan Kiem", "Hang Bai"), 0));
-        queueCustomer.add(new Customer("001045006124", "Nam 4 ", "7/8/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Thai Ha"), 1));
-        queueCustomer.add(new Customer("001045006125", "Nam 5", "30/9/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Phuong Liet"), 3));
+        getDataFromServer();
+
+//        queueCustomer.add(new Customer("001045006121", "Nguyen Van Hoai Nam", "20/3/1999", "0123456879",
+//                new Address("Ha Noi", "Dong Da", "Trung Tu"), 1));
+//        queueCustomer.add(new Customer("001045006122", "Nam 2", "10/11/1999", "012345435479",
+//                new Address("Ha Noi", "Dong Da", "Trung Liet"), 2));
+//        queueCustomer.add(new Customer("001045006123", "Nam 3", "6/5/1999", "0123456879",
+//                new Address("Ha Noi", "Hoan Kiem", "Hang Bai"), 0));
+//        queueCustomer.add(new Customer("001045006124", "Nam 4 ", "7/8/1999", "0123456879",
+//                new Address("Ha Noi", "Dong Da", "Thai Ha"), 1));
+//        queueCustomer.add(new Customer("001045006125", "Nam 5", "30/9/1999", "0123456879",
+//                new Address("Ha Noi", "Dong Da", "Phuong Liet"), 3));
 
         getFullInfo();
 
@@ -126,6 +135,37 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
         } else {
             Toast.makeText(this, "Hang doi rong", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void getDataFromServer(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://provinces.open-api.vn/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        Call<List<Customer>> customer = jsonPlaceHolderApi.getcustomer(todanpho_id);
+
+        customer.enqueue(new Callback<List<Customer>>() {
+            @Override
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                listCustomer = response.body();
+                for(int i=0;i<listCustomer.size();i++){
+                    queueCustomer.add(listCustomer.get(i));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
+            }
+        });
     }
 
     @Override

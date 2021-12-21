@@ -1,7 +1,9 @@
 package com.example.squeue.getAPI;
 
 import com.example.squeue.model.City;
+import com.example.squeue.model.Customer;
 import com.example.squeue.model.District;
+import com.example.squeue.model.Hangcho;
 import com.example.squeue.model.Phuong;
 import com.example.squeue.model.Qr;
 import com.example.squeue.model.Quan;
@@ -45,4 +47,11 @@ public interface JsonPlaceHolderApi {
 
     @POST("qr")
     Call<Qr> createQr(@Body String qr);
+
+    @GET("/customer")
+    Call<List<Customer>> getcustomer(@Body int todanpho_id);
+
+    @GET("/listqueue")
+    Call<List<Hangcho>> getqueue();
+
 }

@@ -204,7 +204,7 @@
                 android:id="@+id/btDate"
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:text="@string/pickDate"
+                android:text="@string/startDate"
                 android:layout_weight="1" />
 
             <TextView
@@ -230,12 +230,65 @@
                 android:id="@+id/btTime"
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:text="@string/pickTime"
+                android:text="@string/startTime"
                 android:minWidth="100dp"
                 android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_weight="2" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btEndDate"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:text="@string/endDate"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="2"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btEndTime"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:text="@string/endTime"
+                android:minWidth="100dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

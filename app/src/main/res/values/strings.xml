@@ -61,8 +61,10 @@
     <string name="createQueue">Tạo hàng đợi</string>
     <string name="seeQueue">Xem hàng chờ</string>
     <string name="vaccineType">Loại Vaccine</string>
-    <string name="pickDate">Chọn ngày</string>
-    <string name="pickTime">Chọn giờ</string>
+    <string name="startDate">Ngày bắt đầu</string>
+    <string name="startTime">Giờ bắt đầu</string>
+    <string name="endDate">Ngày kết thúc</string>
+    <string name="endTime">Giờ kết thúc</string>
     <string name="listCustomer">Hàng chờ</string>
     <string name="btNext">Served</string>
     <string name="btBack">Backward</string>

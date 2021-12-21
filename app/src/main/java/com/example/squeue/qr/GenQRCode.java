@@ -71,6 +71,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private StorageReference storageReference;
     private DatabaseReference root;
     private int QrId = 1, todanpho_id, qr_id ;
+    private long startTime, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,13 +99,15 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         vaccineName = bundle.getString("vaccine");
         date = bundle.getString("date");
         time = bundle.getString("time");
+        startTime = bundle.getInt("startTime");
+        endTime = bundle.getInt("endTime");
         qr_id = getSharedPreference();
 
         fullAddress = city + ", " + district + ", " + ward + ", " + todanpho + ", " + vaccineName + ", " + date + ", " + time;
         tvAddress.setText(fullAddress);
         address = new Address(city, district, ward);
 
-        qr_string = "" + todanpho_id + ", " + qr_id  + ", " +
+        qr_string = "" + todanpho_id + ", " + qr_id  + ", " + startTime + ", " +endTime;
 
         // get the Firebase storage reference
         storage = FirebaseStorage.getInstance();
