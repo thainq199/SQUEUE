@@ -58,23 +58,23 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
         id = bundle.getInt("id");
         city = bundle.getString("city");
 
-        Toast.makeText(this, "Id=" + id + ", city=" + city, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Id=" + id + ", city=" + city, Toast.LENGTH_LONG).show();
 
         listCustomer = new ArrayList<>();
         queueCustomer = new LinkedList<>();
 
         //getDataFromServer();
 
-        queueCustomer.add(new Customer("001045006121", "Nguyen Van Hoai Nam", "20/3/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Trung Tu"), 1));
-        queueCustomer.add(new Customer("001045006122", "Nam 2", "10/11/1999", "012345435479",
-                new Address("Ha Noi", "Dong Da", "Trung Liet"), 2));
-        queueCustomer.add(new Customer("001045006123", "Nam 3", "6/5/1999", "0123456879",
-                new Address("Ha Noi", "Hoan Kiem", "Hang Bai"), 0));
-        queueCustomer.add(new Customer("001045006124", "Nam 4 ", "7/8/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Thai Ha"), 1));
-        queueCustomer.add(new Customer("001045006125", "Nam 5", "30/9/1999", "0123456879",
-                new Address("Ha Noi", "Dong Da", "Phuong Liet"), 3));
+        queueCustomer.add(new Customer("001045006121", "Nguyễn Văn Nam", "20/3/1991", "0123456879",
+                new Address("Hà Nội", "Đống Đa", "Trung Tự"), 1));
+        queueCustomer.add(new Customer("001045006122", "Trần Quốc Cường", "10/11/1989", "012345435479",
+                new Address("Hà Nội", "Đống Đa", "Trung Liệt"), 2));
+        queueCustomer.add(new Customer("001045006123", "Đào Thị Thủy", "6/5/1979", "0123456879",
+                new Address("Hà Nội", "Hoàn Kiếm", "Hàng Bài"), 0));
+        queueCustomer.add(new Customer("001045006124", "Ngô Văn Sơn", "7/8/1995", "0123456879",
+                new Address("Hà Nội", "Đống Đa", "Thái Hà"), 1));
+        queueCustomer.add(new Customer("001045006125", "Nguyễn Thùy Linh", "30/9/1999", "0123456879",
+                new Address("Hà Nội", "Đống Đa", "Phương Liệt"), 3));
 
         getFullInfo();
 
@@ -108,7 +108,7 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
     public void nextBt() {
         if (!queueCustomer.isEmpty()) {
             Log.i("Dau q", queueCustomer.peek().getName().toString());
-            Toast.makeText(this, "Da phuc vu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đã phục vụ", Toast.LENGTH_SHORT).show();
             queueCustomer.poll();
             if (!queueCustomer.isEmpty()) {
                 getFullInfo();
@@ -116,7 +116,7 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
                 tvCustomerId.setText(fullInfo2);
             }
         } else {
-            Toast.makeText(this, "Hang doi rong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Hàng đợi rỗng", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -127,17 +127,17 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
     public void rearBt() {
         if (!queueCustomer.isEmpty()) {
             Customer c = queueCustomer.poll();
-            Toast.makeText(this, "Da dua ve cuoi Queue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đã đưa về cuối hàng đợi", Toast.LENGTH_SHORT).show();
             queueCustomer.add(c);
             getFullInfo();
             tvCustomerName.setText(fullInfo);
             tvCustomerId.setText(fullInfo2);
         } else {
-            Toast.makeText(this, "Hang doi rong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Hàng đợi rỗng", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void getDataFromServer(){
+    public void getDataFromServer() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.130:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -156,7 +156,7 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
                 }
 
                 listCustomer = response.body();
-                for(int i=0;i<listCustomer.size();i++){
+                for (int i = 0; i < listCustomer.size(); i++) {
                     queueCustomer.add(listCustomer.get(i));
                 }
 

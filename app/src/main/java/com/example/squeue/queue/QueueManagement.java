@@ -38,15 +38,15 @@ public class QueueManagement extends AppCompatActivity implements View.OnClickLi
         ivHome = findViewById(R.id.ivHome);
         listQueue = new ArrayList<>();
 
-        listQueue.add(new Address(1, "Ha Noi, Dong Da, Trung Tu", "Dong Da", "Trung Tu"));
-        listQueue.add(new Address(2, "HN", "Dong Da", "Trung Liet"));
-        listQueue.add(new Address(3, "HN", "Ba Dinh", "Phuc Xa "));
-        listQueue.add(new Address(4, "HN", "Ba Dinh", "Truc Bach"));
-        listQueue.add(new Address(5, "HN", "Ba Dinh", "Lieu Giai"));
-        listQueue.add(new Address(6, "HN", "Hoan Kiem", "Hang Buom"));
-        listQueue.add(new Address(7, "HN", "Hoan Kiem", "Hang Bong"));
-        listQueue.add(new Address(8, "HN", "Hoan Kiem", "Hang Bai"));
-        listQueue.add(new Address(9, "HN", "Dong Da", "O Cho Dua"));
+        listQueue.add(new Address(1, "Hà Nội, Đống Đa, Trung Tự", "Đống Đa", "Trung Tự"));
+        listQueue.add(new Address(2, "Hà Nội, Đống Đa, Cát Linh", "Đống Đa", "Cát Linh"));
+        listQueue.add(new Address(3, "Hà Nội, Đống Đa, Ô Chợ Dừa", "Đống Đa", "Ô Chợ Dừa"));
+        listQueue.add(new Address(4, "Hà Nội, Ba Đình, Trúc Bạch", "Ba Đình", "Trúc Bạch"));
+        listQueue.add(new Address(5, "Hà Nội, Ba Đình, Liễu Giai", "Ba Đình", "Liễu Giai"));
+        listQueue.add(new Address(6, "Hà Nội, Hoàn Kiếm, Hàng Buồm", "Hoàn Kiếm", "Hàng Buồm"));
+        listQueue.add(new Address(7, "Hà Nội, Hoàn Kiếm, Hàng Bông", "Hoàn Kiếm", "Hàng Bông"));
+        listQueue.add(new Address(8, "Hà Nội, Hoàn Kiếm, Hàng Bài", "Hoàn Kiếm", "Hàng Bài"));
+        listQueue.add(new Address(9, "Hà Nội, Hoàng Mai, Đại Kim", "Hoàng Mai", "Đại Kim"));
 
 
         queueListViewAdapter = new QueueListViewAdapter(listQueue);

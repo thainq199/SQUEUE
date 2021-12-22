@@ -70,7 +70,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference root;
-    private int QrId = 1, todanpho_id, qr_id ;
+    private int QrId = 1, todanpho_id, qr_id;
     private long startTime, endTime;
 
     @Override
@@ -107,7 +107,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         tvAddress.setText(fullAddress);
         address = new Address(city, district, ward);
 
-        qr_string = "" + todanpho_id + ", " + qr_id  + ", " + startTime + ", " +endTime;
+        qr_string = "" + todanpho_id + ", " + qr_id + ", " + startTime + ", " + endTime;
 
         // get the Firebase storage reference
         storage = FirebaseStorage.getInstance();
@@ -275,7 +275,7 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         return Uri.parse(path);
     }
 
-    public void postData(Qr qr_json){
+    public void postData(Qr qr_json) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.130:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -337,13 +337,13 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public int getQrId(){
+    public int getQrId() {
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        QrId = sh.getInt("QrId",QrId);
+        QrId = sh.getInt("QrId", QrId);
         return QrId;
     }
 
-    public void setSharedPreference(int id){
+    public void setSharedPreference(int id) {
         // Creating a shared pref object
         // with a file name "MySharedPref"
         // in private mode
@@ -354,11 +354,12 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         myEdit.putInt("QrId", id);
         myEdit.apply();
     }
-    public int getSharedPreference(){
+
+    public int getSharedPreference() {
         // Fetching the stored data
         // from the SharedPreference
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        QrId = sh.getInt("QrId",1);
+        QrId = sh.getInt("QrId", 1);
         return QrId;
     }
 

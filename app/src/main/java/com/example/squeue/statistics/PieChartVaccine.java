@@ -70,38 +70,38 @@ public class PieChartVaccine extends AppCompatActivity implements View.OnClickLi
         ivHome.setOnClickListener(this);
     }
 
-//    public void getDataFromServer() {
-//        Bundle bundle = getIntent().getExtras();
-//        city = bundle.getString("city");
-//        district = bundle.getString("district");
-//        ward = bundle.getString("ward");
-//        //lay 1 list customer
-//
-//        //dem customer.state
-//        customerList = new ArrayList<>();
-//        customerList.add(new Customer("0", "2", "3", "4", null, 0));
-//        customerList.add(new Customer("1", "2", "3", "4", null, 1));
-//        customerList.add(new Customer("2", "2", "3", "4", null, 2));
-//        customerList.add(new Customer("3", "2", "3", "4", null, 3));
-//        customerList.add(new Customer("4", "2", "3", "4", null, 0));
-//        customerList.add(new Customer("5", "2", "3", "4", null, 1));
-//        customerList.add(new Customer("6", "2", "3", "4", null, 2));
-//        customerList.add(new Customer("7", "2", "3", "4", null, 2));
-//        customerList.add(new Customer("8", "2", "3", "4", null, 2));
-//        customerList.add(new Customer("9", "2", "3", "4", null, 2));
-//
-//        for (int i = 0; i < customerList.size(); i++) {
-////            if (customerList.get(i).getAddress().getCity().equals(city) &&
-////                    customerList.get(i).getAddress().getDistrict().equals(district) &&
-////                    customerList.get(i).getAddress().getWard().equals(ward))
-////            {
-//            if (customerList.get(i).getState() == 0) dose0++;
-//            else if (customerList.get(i).getState() == 1) dose1++;
-//            else if (customerList.get(i).getState() == 2) dose2++;
-//            else if (customerList.get(i).getState() == 3) dose3++;
-//            // }
-//        }
-//    }
+    public void getDataFromServer() {
+        Bundle bundle = getIntent().getExtras();
+        city = bundle.getString("city");
+        district = bundle.getString("district");
+        ward = bundle.getString("ward");
+        //lay 1 list customer
+
+        //dem customer.state
+        customerList = new ArrayList<>();
+        customerList.add(new Customer("0", "2", "3", "4", null, 0));
+        customerList.add(new Customer("1", "2", "3", "4", null, 1));
+        customerList.add(new Customer("2", "2", "3", "4", null, 2));
+        customerList.add(new Customer("3", "2", "3", "4", null, 3));
+        customerList.add(new Customer("4", "2", "3", "4", null, 0));
+        customerList.add(new Customer("5", "2", "3", "4", null, 1));
+        customerList.add(new Customer("6", "2", "3", "4", null, 2));
+        customerList.add(new Customer("7", "2", "3", "4", null, 2));
+        customerList.add(new Customer("8", "2", "3", "4", null, 2));
+        customerList.add(new Customer("9", "2", "3", "4", null, 2));
+
+        for (int i = 0; i < customerList.size(); i++) {
+//            if (customerList.get(i).getAddress().getCity().equals(city) &&
+//                    customerList.get(i).getAddress().getDistrict().equals(district) &&
+//                    customerList.get(i).getAddress().getWard().equals(ward))
+//            {
+            if (customerList.get(i).getState() == 0) dose0++;
+            else if (customerList.get(i).getState() == 1) dose1++;
+            else if (customerList.get(i).getState() == 2) dose2++;
+            else if (customerList.get(i).getState() == 3) dose3++;
+            // }
+        }
+    }
 
     public void setData() {
 
@@ -137,38 +137,38 @@ public class PieChartVaccine extends AppCompatActivity implements View.OnClickLi
         pieChart.startAnimation();
     }
 
-    public void getDataFromServer() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://provinces.open-api.vn/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        Call<List<Customer>> customer = jsonPlaceHolderApi.getcustomer(todanpho_id);
-
-        customer.enqueue(new Callback<List<Customer>>() {
-            @Override
-            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
-
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                customerList = response.body();
-                for (int i = 0; i < customerList.size(); i++) {
-                    if (customerList.get(i).getState() == 0) dose0++;
-                    else if (customerList.get(i).getState() == 1) dose1++;
-                    else if (customerList.get(i).getState() == 2) dose2++;
-                    else if (customerList.get(i).getState() == 3) dose3++;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Customer>> call, Throwable t) {
-            }
-        });
-    }
+//    public void getDataFromServer() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://192.168.1.130:3001/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+//
+//        Call<List<Customer>> customer = jsonPlaceHolderApi.getcustomer(todanpho_id);
+//
+//        customer.enqueue(new Callback<List<Customer>>() {
+//            @Override
+//            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+//
+//                if (!response.isSuccessful()) {
+//                    return;
+//                }
+//
+//                customerList = response.body();
+//                for (int i = 0; i < customerList.size(); i++) {
+//                    if (customerList.get(i).getState() == 0) dose0++;
+//                    else if (customerList.get(i).getState() == 1) dose1++;
+//                    else if (customerList.get(i).getState() == 2) dose2++;
+//                    else if (customerList.get(i).getState() == 3) dose3++;
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Customer>> call, Throwable t) {
+//            }
+//        });
+//    }
 
     @Override
     public void onClick(View v) {

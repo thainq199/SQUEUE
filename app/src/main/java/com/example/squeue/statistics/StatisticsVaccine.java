@@ -40,7 +40,7 @@ public class StatisticsVaccine extends AppCompatActivity implements View.OnClick
     private List<Quan> districtsList;
     private List<Phuong> wardsList;
     private List<Todanpho> todanphoList;
-    private String spinnerCity, spinnerDistrict, spinnerWard,spinnertoDanPho;
+    private String spinnerCity, spinnerDistrict, spinnerWard, spinnertoDanPho;
     private int province_code = 1, district_code = 1, todanpho_id;
 
     @Override
@@ -310,15 +310,15 @@ public class StatisticsVaccine extends AppCompatActivity implements View.OnClick
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
-        spinnerCity = city.getSelectedItem().toString();
-        spinnerDistrict = district.getSelectedItem().toString();
-        spinnerWard = ward.getSelectedItem().toString();
-        spinnertoDanPho = todanpho.getSelectedItem().toString();
-        for (int i = 0; i < todanphoList.size(); i++) {
-            if(todanphoList.get(i).getTen().equals(spinnertoDanPho)){
-                todanpho_id=todanphoList.get(i).getId();
-            }
-        }
+//        spinnerCity = city.getSelectedItem().toString();
+//        spinnerDistrict = district.getSelectedItem().toString();
+//        spinnerWard = ward.getSelectedItem().toString();
+//        spinnertoDanPho = todanpho.getSelectedItem().toString();
+//        for (int i = 0; i < todanphoList.size(); i++) {
+//            if(todanphoList.get(i).getTen().equals(spinnertoDanPho)){
+//                todanpho_id=todanphoList.get(i).getId();
+//            }
+//        }
     }
 
     @Override

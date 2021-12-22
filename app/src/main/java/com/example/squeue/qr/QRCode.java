@@ -83,7 +83,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.activity_qrcode);
         init();
         setOnClick();
-        //getAPI();
+        getAPI();
     }
 
     public void init() {
@@ -484,12 +484,12 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     }
 
     public long convertDate() {
-        String givenDateString = dateText+" "+timeText;
+        String givenDateString = dateText + " " + timeText;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date mDate = sdf.parse(givenDateString);
-            timeInMilliseconds = mDate.getTime()/1000;
-            Log.d("Date in milli :: " ,""+timeInMilliseconds);
+            timeInMilliseconds = mDate.getTime() / 1000;
+            Log.d("Date in milli :: ", "" + timeInMilliseconds);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -502,7 +502,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
     public void onClick(View v) {
         if (v.getId() == btGenQR.getId()) {
             endTime = convertDate();
-            Log.d("End time: " ,""+endTime);
+            Log.d("End time: ", "" + endTime);
             genQR();
         } else if (v.getId() == ivBack.getId()) {
             finish();
@@ -517,7 +517,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
         } else if (v.getId() == btEndDate.getId()) {
             handleDateButton(2);
             startTime = convertDate();
-            Log.d("Start time: " ,""+startTime);
+            Log.d("Start time: ", "" + startTime);
         } else if (v.getId() == btEndTime.getId()) {
             handleTimeButton(2);
         }

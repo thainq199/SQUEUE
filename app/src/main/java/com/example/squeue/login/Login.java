@@ -103,23 +103,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            JsonPlaceHolderApi apiService = RetrofitInstance.getApiService();
-            apiService.login(new Token(account.getIdToken())).enqueue(new Callback<Token>() {
-                @Override
-                public void onResponse(Call<Token> call, Response<Token> response) {
-                   // if(response.code()==200){
-                        // Signed in successfully, show authenticated UI.
-                        Intent in = new Intent(Login.this, Home.class);
-                        startActivity(in);
-                   // }
-                }
-
-                @Override
-                public void onFailure(Call<Token> call, Throwable t) {
-                    Log.d("submitTest", "onFailure: " + t.getMessage());
-                }
-            });
-
+            // Signed in successfully, show authenticated UI.
+            Intent in = new Intent(this, Home.class);
+            startActivity(in);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
