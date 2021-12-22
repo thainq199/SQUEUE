@@ -107,11 +107,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             apiService.login(new Token(account.getIdToken())).enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
-                    if(response.code()==200){
+                   // if(response.code()==200){
                         // Signed in successfully, show authenticated UI.
                         Intent in = new Intent(Login.this, Home.class);
                         startActivity(in);
-                    }
+                   // }
                 }
 
                 @Override

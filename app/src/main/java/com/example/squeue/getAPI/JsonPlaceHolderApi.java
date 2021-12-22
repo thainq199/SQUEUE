@@ -45,13 +45,13 @@ public interface JsonPlaceHolderApi {
     @GET("/todanphos")
     Call<List<Todanpho>> getTodanpho();
 
-    @POST("qr")
-    Call<Qr> createQr(@Body String qr);
+    @POST("/maqrs")
+    Call<Qr> createQr(@Body Qr qr);
 
     @GET("/customer")
     Call<List<Customer>> getcustomer(@Body int todanpho_id);
 
-    @GET("/listqueue")
+    @GET("/dangkytiems")
     Call<List<Hangcho>> getqueue();
 
 }

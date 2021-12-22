@@ -211,10 +211,10 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
                                                 setSharedPreference(++id);
 
                                                 //post obj len server...
-                                                Gson gson = new Gson();
-                                                jsonQr = gson.toJson(qrCode);
-                                                //jsonQr=addQrJsonToServer(qrCode);
-                                                postData(jsonQr);
+//                                                Gson gson = new Gson();
+//                                                jsonQr = gson.toJson(qrCode);
+//                                                //jsonQr=addQrJsonToServer(qrCode);
+                                                postData(qrCode);
                                                 Log.d("jsonQr", "" + jsonQr);
                                             }
                                         });
@@ -275,16 +275,16 @@ public class GenQRCode extends AppCompatActivity implements View.OnClickListener
         return Uri.parse(path);
     }
 
-    public void postData(String qr_code){
+    public void postData(Qr qr_json){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("/")
+                .baseUrl("http://192.168.1.130:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         // calling a method to create a post and passing our modal class.
-        Call<Qr> call = jsonPlaceHolderApi.createQr(qr_code);
+        Call<Qr> call = jsonPlaceHolderApi.createQr(qr_json);
 
         // on below line we are executing our method.
         call.enqueue(new Callback<Qr>() {

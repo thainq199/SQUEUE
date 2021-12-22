@@ -63,18 +63,18 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
         listCustomer = new ArrayList<>();
         queueCustomer = new LinkedList<>();
 
-        getDataFromServer();
+        //getDataFromServer();
 
-//        queueCustomer.add(new Customer("001045006121", "Nguyen Van Hoai Nam", "20/3/1999", "0123456879",
-//                new Address("Ha Noi", "Dong Da", "Trung Tu"), 1));
-//        queueCustomer.add(new Customer("001045006122", "Nam 2", "10/11/1999", "012345435479",
-//                new Address("Ha Noi", "Dong Da", "Trung Liet"), 2));
-//        queueCustomer.add(new Customer("001045006123", "Nam 3", "6/5/1999", "0123456879",
-//                new Address("Ha Noi", "Hoan Kiem", "Hang Bai"), 0));
-//        queueCustomer.add(new Customer("001045006124", "Nam 4 ", "7/8/1999", "0123456879",
-//                new Address("Ha Noi", "Dong Da", "Thai Ha"), 1));
-//        queueCustomer.add(new Customer("001045006125", "Nam 5", "30/9/1999", "0123456879",
-//                new Address("Ha Noi", "Dong Da", "Phuong Liet"), 3));
+        queueCustomer.add(new Customer("001045006121", "Nguyen Van Hoai Nam", "20/3/1999", "0123456879",
+                new Address("Ha Noi", "Dong Da", "Trung Tu"), 1));
+        queueCustomer.add(new Customer("001045006122", "Nam 2", "10/11/1999", "012345435479",
+                new Address("Ha Noi", "Dong Da", "Trung Liet"), 2));
+        queueCustomer.add(new Customer("001045006123", "Nam 3", "6/5/1999", "0123456879",
+                new Address("Ha Noi", "Hoan Kiem", "Hang Bai"), 0));
+        queueCustomer.add(new Customer("001045006124", "Nam 4 ", "7/8/1999", "0123456879",
+                new Address("Ha Noi", "Dong Da", "Thai Ha"), 1));
+        queueCustomer.add(new Customer("001045006125", "Nam 5", "30/9/1999", "0123456879",
+                new Address("Ha Noi", "Dong Da", "Phuong Liet"), 3));
 
         getFullInfo();
 
@@ -139,7 +139,7 @@ public class ListCustomerQueue extends AppCompatActivity implements View.OnClick
 
     public void getDataFromServer(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://provinces.open-api.vn/")
+                .baseUrl("http://192.168.1.130:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

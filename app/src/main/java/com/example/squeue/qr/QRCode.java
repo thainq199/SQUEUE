@@ -245,7 +245,7 @@ public class QRCode extends AppCompatActivity implements View.OnClickListener, A
 
     public void getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://provinces.open-api.vn/")
+                .baseUrl("http://192.168.1.130:3001/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
